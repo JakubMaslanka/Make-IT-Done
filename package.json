@@ -1,7 +1,18 @@
 {
   "name": "make-it-done",
   "version": "0.1.0",
+  "description": "An application that allows you to control everyday tasks and projects. It provides the tools to stay focused, visualize deadlines, and keep everything in one place.",
   "private": true,
+  "keywords": [
+    "App",
+    "todo",
+    "pomodoro",
+    "technique",
+    "calendar",
+    "aio"
+  ],
+  "author": "Jakub Maślanka",
+  "license": "ISC",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
