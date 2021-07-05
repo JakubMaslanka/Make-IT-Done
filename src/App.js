@@ -1,24 +1,18 @@
 import React from 'react';
 import './App.css';
+import TaskList from './TaskList';
 
 function App() {
+  const date = new Date();
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit
-          <code>src/App.js</code>
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>
+        {date.toDateString()}
+      </p>
+      <h2>Welcome back,</h2>
+      <h1>username!</h1>
+      <h5>Yours taks for today:</h5>
+      <TaskList />
     </div>
   );
 }
