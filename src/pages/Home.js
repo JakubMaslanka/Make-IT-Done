@@ -1,19 +1,51 @@
 import React from 'react';
+import styled from 'styled-components';
 import TaskList from '../components/TaskList';
 
 const date = new Date();
 const Home = () => (
   <>
-    <div>
+    <Header>
       <p>
         {date.toDateString()}
       </p>
       <h2>Welcome back,</h2>
       <h1>username!</h1>
-      <h5>Yours taks for today:</h5>
-    </div>
+      <h5>Your&apos;s taks for today:</h5>
+    </Header>
     <TaskList />
   </>
 );
+
+const Header = styled.div`
+  margin: 0px 20px;
+  color: #FFFFFF;
+  font-family: Roboto;
+  line-height: 70px;
+  p {
+    font-size: 20px;
+    font-weight: 200;
+    line-height: 26px;
+    opacity: 88%;
+    margin-bottom: 0px;
+  }
+  h2{
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 300;
+    margin: 0px;
+  }
+  h1{
+    font-size: 40px;
+    font-weight: 500;
+    margin: 0px;
+    transform: translateY(-30px);
+  }
+  h5{
+    font-size: 22px;
+    font-weight: 250;
+    margin: 0px;
+  }
+`;
 
 export default Home;
