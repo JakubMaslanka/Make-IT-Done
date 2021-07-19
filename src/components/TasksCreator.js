@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as PublishIcon } from '../utilities/assets/publish_black_24dp.svg';
+import { ReactComponent as PublishIcon } from '../utilities/assets/submit_icon.svg';
 
 function TasksCreator({ onCreate }) {
   const tasksTitle = useRef(null);
@@ -17,9 +17,11 @@ function TasksCreator({ onCreate }) {
   };
 
   return (
-    <>
+    <TaskCreatorContainer>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledButton type="submit"><PublishIcon /></StyledButton>
+        <StyledButton type="submit">
+          <PublishIcon />
+        </StyledButton>
         <StyledInput required placeholder="Add new task" type="text" ref={tasksTitle} />
         {/* <ul>
           <li>when</li>
@@ -27,21 +29,22 @@ function TasksCreator({ onCreate }) {
           <li>many</li>
         </ul> */}
       </StyledForm>
-    </>
+    </TaskCreatorContainer>
   );
 }
 
-const StyledForm = styled.form`
+const TaskCreatorContainer = styled.div`
   position: fixed;
   bottom: 0;
-  margin: 0px 10px 85px 10px;
+  margin: 0px 10px 75px 10px;
+  width: calc(100% - 20px);
+`;
+
+const StyledForm = styled.form`
   display: flex;
   flex-direction: row;
-  align-content: center;
   justify-content: center;
   align-items: center;
-  width: 98%;
-  flex-wrap: nowrap;
   background: #2D3E50;
   border-radius: 10px;
 `;
