@@ -55,6 +55,7 @@ function TaskList() {
           onComplete={() => toggleComplete(idx)}
           title={task.title}
           isCompleted={task.isCompleted}
+          deadline={task.deadline}
         />
       ))}
       <TasksCreator onCreate={handleCreate} />
