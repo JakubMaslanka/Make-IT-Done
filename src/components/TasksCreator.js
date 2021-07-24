@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import DropdownMenu from './DropdownMenu';
 import { ReactComponent as PublishIcon } from '../utilities/assets/submit_icon.svg';
+import { ReactComponent as DataPickUpIcon } from '../utilities/assets/data_pickup_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../utilities/assets/pomodoro_clock_icon.svg';
+import { ReactComponent as RepeatCountIcon } from '../utilities/assets/repeat_count_icon.svg';
 
 function TasksCreator({ onCreate }) {
   const tasksTitle = useRef(null);
@@ -18,38 +22,55 @@ function TasksCreator({ onCreate }) {
 
   return (
     <TaskCreatorContainer>
-      <StyledForm onSubmit={handleSubmit}>
-        <StyledButton type="submit">
+      <FormContainer onSubmit={handleSubmit}>
+        <SubmitButton type="submit">
           <PublishIcon />
-        </StyledButton>
-        <StyledInput required placeholder="Add new task" type="text" ref={tasksTitle} />
-        {/* <ul>
-          <li>when</li>
-          <li>long</li>
-          <li>many</li>
-        </ul> */}
-      </StyledForm>
+        </SubmitButton>
+        <TextInput required placeholder="Add new task" type="text" ref={tasksTitle} />
+        <TaskOptions>
+          <DropdownMenu icon={<DataPickUpIcon />}>
+            <MenuItem>Today</MenuItem>
+            <MenuItem>Tommorow</MenuItem>
+            <MenuItem>Next Week</MenuItem>
+            <hr size="1" />
+            <MenuItem>Pickup the data</MenuItem>
+          </DropdownMenu>
+          <DropdownMenu icon={<PomodoroClockIcon />} />
+          <DropdownMenu icon={<RepeatCountIcon />} />
+        </TaskOptions>
+      </FormContainer>
     </TaskCreatorContainer>
   );
 }
 
-const TaskCreatorContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  margin: 0px 10px 75px 10px;
-  width: calc(100% - 20px);
+const MenuItem = styled.li`
+    height: 30px;
+    display: flex;
+    align-items: center;
+    transition: background 0.5;
+    padding: .8rem;
+    &:hover{
+      background: #EFEFEF;
+    }
 `;
 
-const StyledForm = styled.form`
+const TaskOptions = styled.div`
+  list-style: none;
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background: #2D3E50;
-  border-radius: 10px;
+  svg{
+    padding: 0px 10px;
+    fill: #128069;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    &:hover{
+      transition: all 0.2s ease;
+      fill: #1BBC9B;
+  }
 `;
 
-const StyledInput = styled.input`
+const TextInput = styled.input`
   background: none;
   border: none;
   padding: 10px;
@@ -59,7 +80,7 @@ const StyledInput = styled.input`
   width: 100%;
 `;
 
-const StyledButton = styled.button`
+const SubmitButton = styled.button`
   background: none;
   border: none;
   padding: 10px;
@@ -67,6 +88,7 @@ const StyledButton = styled.button`
     fill: #128069;
     width: 32px;
     height: 32px;
+    cursor: pointer;
   }
   &:hover{
     transition: all 0.2s ease;
@@ -74,7 +96,22 @@ const StyledButton = styled.button`
       fill: #1BBC9B;
     }
   }
-    
+`;
+
+const FormContainer = styled.form`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #2D3E50;
+  border-radius: 10px;
+`;
+
+const TaskCreatorContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  margin: 0px 10px 75px 10px;
+  width: calc(100% - 20px);
 `;
 
 export default TasksCreator;
