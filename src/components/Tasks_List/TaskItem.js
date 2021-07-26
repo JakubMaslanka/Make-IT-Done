@@ -6,7 +6,7 @@ import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_cir
 import { ReactComponent as SmallCalendar } from '../utilities/assets/calendar_icon.svg';
 import { ReactComponent as MenuIcon } from '../utilities/assets/hamburger_menu_icon.svg';
 
-export default function Task({
+export default function TaskItem({
   title, isCompleted, onComplete, openDetails, deadline,
 }) {
   return (

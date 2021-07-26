@@ -1,6 +1,7 @@
+/* eslint-disable import/named */
 import React from 'react';
 import styled from 'styled-components';
-import TaskList from '../components/TaskList';
+import TaskManager from '../components/Tasks_List/TaskManager';
 
 const date = new Date();
 const Home = () => (
@@ -13,7 +14,7 @@ const Home = () => (
       <h1>username!</h1>
       <h5>Your&apos;s taks for today:</h5>
     </Header>
-    <TaskList />
+    <TaskManager />
   </>
 );
 

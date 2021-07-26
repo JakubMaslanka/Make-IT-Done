@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { ReactComponent as TaskIcon } from '../utilities/assets/tasks_icon.svg';
-import { ReactComponent as ProjectsIcon } from '../utilities/assets/projects_icon.svg';
-import { ReactComponent as HomeIcon } from '../utilities/assets/home_icon.svg';
-import { ReactComponent as CalendarIcon } from '../utilities/assets/calendar_icon.svg';
-import { ReactComponent as PomodoroIcon } from '../utilities/assets/pomodoro_icon.svg';
+import { ReactComponent as TaskIcon } from './utilities/assets/tasks_icon.svg';
+import { ReactComponent as ProjectsIcon } from './utilities/assets/projects_icon.svg';
+import { ReactComponent as HomeIcon } from './utilities/assets/home_icon.svg';
+import { ReactComponent as CalendarIcon } from './utilities/assets/calendar_icon.svg';
+import { ReactComponent as PomodoroIcon } from './utilities/assets/pomodoro_icon.svg';
 
 function Navigation() {
   const [activeLinkIdx, setActiveLinkIdx] = useState(2);

@@ -1,10 +1,11 @@
+/* eslint-disable import/named */
 import React from 'react';
-import TaskList from '../components/TaskList';
+import TaskManager from '../components/Tasks_List/TaskManager';
 
 const Tasks = () => (
   <div>
     Tasks list View!
-    <TaskList />
+    <TaskManager />
   </div>
 );
 

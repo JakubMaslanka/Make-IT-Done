@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import useClickOutsideHook from '../utilities/useClickOutsideHook';
-import { ReactComponent as TrashIcon } from '../utilities/assets/trash_icon.svg';
-import { ReactComponent as DataPickUpIcon } from '../utilities/assets/data_pickup_icon.svg';
+import useClickOutsideHook from '../../utilities/useClickOutsideHook';
+import { ReactComponent as TrashIcon } from '../../utilities/assets/trash_icon.svg';
+import { ReactComponent as DataPickUpIcon } from '../../utilities/assets/data_pickup_icon.svg';
 
 export default function DropdownCalendarMenu({
   icon, label, isOpen, onDatePick,

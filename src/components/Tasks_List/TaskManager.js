@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import TasksCreator from './TasksCreator';
-import Task from './Task';
+import TasksCreator from './Tasks_Creator/TasksCreator';
+import TaskItem from './TaskItem';
 import TaskDetailsMenu from './TaskDetailsMenu';
 
-function TaskList() {
+function TaskManager() {
   const [tasks, setTask] = useState([
     { title: 'Test', isCompleted: true, id: 5 },
     { title: 'Test2', isCompleted: false, id: 55 },
@@ -49,7 +49,7 @@ function TaskList() {
         )
         : ''}
       {tasks.map((task, idx) => (
-        <Task
+        <TaskItem
           key={task.id}
           openDetails={() => setCurrentEditingTaskId(task.id)}
           onComplete={() => toggleComplete(idx)}
@@ -63,4 +63,4 @@ function TaskList() {
   );
 }
 
-export default TaskList;
+export default TaskManager;

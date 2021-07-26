@@ -7,12 +7,12 @@ import 'react-calendar/dist/Calendar.css';
 import DropdownCalendarMenu from './DropdownCalendarMenu';
 import DropdownPomodoroMenu from './DropdownPomodoroMenu';
 import DropdownRepeatMenu from './DropdownRepeatMenu';
-import useClickOutsideHook from '../utilities/useClickOutsideHook';
+import useClickOutsideHook from '../../utilities/useClickOutsideHook';
 
-import { ReactComponent as PublishIcon } from '../utilities/assets/submit_icon.svg';
-import { ReactComponent as DataPickUpIcon } from '../utilities/assets/data_pickup_icon.svg';
-import { ReactComponent as PomodoroClockIcon } from '../utilities/assets/pomodoro_clock_icon.svg';
-import { ReactComponent as RepeatCountIcon } from '../utilities/assets/repeat_count_icon.svg';
+import { ReactComponent as PublishIcon } from '../../utilities/assets/submit_icon.svg';
+import { ReactComponent as DataPickUpIcon } from '../../utilities/assets/data_pickup_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../../utilities/assets/pomodoro_clock_icon.svg';
+import { ReactComponent as RepeatCountIcon } from '../../utilities/assets/repeat_count_icon.svg';
 
 export default function TasksCreator({ onCreate }) {
   const tasksTitle = useRef(null);
@@ -25,7 +25,7 @@ export default function TasksCreator({ onCreate }) {
     onCreate({
       id: new Date().getMilliseconds(),
       title: tasksTitle.current.value,
-      deadline: moment(pickedDate).format('ddd, D MMMM'),
+      deadline: pickedDate ? moment(pickedDate).format('ddd, D MMMM') : null,
       timeStump: moment().format(),
     });
     tasksTitle.current.value = '';
