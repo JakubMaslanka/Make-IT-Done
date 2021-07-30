@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { ReactComponent as CheckCircle } from '../utilities/assets/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_circle_icon.svg';
 import { ReactComponent as SmallCalendar } from '../utilities/assets/calendar_icon.svg';
@@ -22,7 +23,7 @@ export default function TaskItem({
           {deadline && (
             <p>
               <SmallCalendar />
-              {deadline}
+              {moment(deadline).format('ddd, D MMMM')}
             </p>
           )}
         </Title>

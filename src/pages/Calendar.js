@@ -1,9 +1,8 @@
 import React from 'react';
+import CalendarManager from '../components/Calendar/CalendarManager';
 
 const Calendar = () => (
-  <div>
-    Calendar View!
-  </div>
+  <CalendarManager />
 );
 
 export default Calendar;

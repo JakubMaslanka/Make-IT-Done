@@ -25,7 +25,8 @@ export default function TasksCreator({ onCreate }) {
     onCreate({
       id: new Date().getMilliseconds(),
       title: tasksTitle.current.value,
-      deadline: pickedDate ? moment(pickedDate).format('ddd, D MMMM') : null,
+      isCompleted: false,
+      deadline: pickedDate ? Date.parse(pickedDate) : null,
       timeStump: moment().format(),
     });
     tasksTitle.current.value = '';
@@ -47,7 +48,7 @@ export default function TasksCreator({ onCreate }) {
     <TaskCreatorContainer>
       <div ref={domNode}>
         {isCalendarOpen && (
-        <StyledCalendar
+        <StyledMiniCalendar
           onClickDay={handleDateSubmit}
           onChange={onPickedDate}
           value={new Date() || pickedDate}
@@ -75,7 +76,7 @@ export default function TasksCreator({ onCreate }) {
   );
 }
 
-const StyledCalendar = styled(Calendar)`
+const StyledMiniCalendar = styled(Calendar)`
   position: absolute;
   top: -270px;
   right: 0;

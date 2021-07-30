@@ -1,3 +1,6 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-cycle */
 // eslint-disable-next-line
 import React from 'react';
 import {

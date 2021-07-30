@@ -5,10 +5,13 @@ import TaskDetailsMenu from './TaskDetailsMenu';
 
 function TaskManager() {
   const [tasks, setTask] = useState([
-    { title: 'Test', isCompleted: true, id: 5 },
-    { title: 'Test2', isCompleted: false, id: 55 },
+    {
+      title: 'Test', isCompleted: false, id: 5, deadline: '7/21/2021',
+    },
+    { title: 'Test2', isCompleted: true, id: 55 },
     { title: 'Test3', isCompleted: false, id: 555 },
   ]);
+
   const [currentEditingTaskId, setCurrentEditingTaskId] = useState(null);
 
   const addTask = (task) => {
@@ -31,9 +34,10 @@ function TaskManager() {
     setTask(tasks.filter((task) => idToRemove !== task.id));
   };
 
-  const handleEdit = (e) => {
-    console.log(e.target.value);
-  };
+  // Feature To Completed
+  // const handleEdit = (e) => {
+  //   console.log(e.target.value);
+  // };
 
   return (
     <>
@@ -43,7 +47,7 @@ function TaskManager() {
             id={currentEditingTaskId}
             tasks={tasks}
             closeDetails={() => setCurrentEditingTaskId(null)}
-            onEdit={handleEdit}
+            // onEdit={() => console.log('Editing')}
             onDelete={() => removeTask(currentEditingTaskId)}
           />
         )
