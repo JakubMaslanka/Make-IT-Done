@@ -5,14 +5,15 @@ import moment from 'moment';
 import { ReactComponent as CheckCircle } from '../utilities/assets/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_circle_icon.svg';
 import { ReactComponent as SmallCalendar } from '../utilities/assets/calendar_icon.svg';
-import { ReactComponent as MenuIcon } from '../utilities/assets/hamburger_menu_icon.svg';
+import { ReactComponent as UncheckStarIcon } from '../utilities/assets/uncheck_star_icon.svg';
+import { ReactComponent as CheckStarIcon } from '../utilities/assets/check_star_icon.svg';
 
-export default function TaskItem({
-  title, isCompleted, onComplete, openDetails, deadline,
+function TaskItem({
+  title, deadline, isCompleted, onComplete, isFavorite, onFavorite, openEditor,
 }) {
   return (
     <>
-      <TaskContainer>
+      <TaskContainer onClick={(e) => (e.target.childElementCount >= 3 ? openEditor(e) : null)}>
         {isCompleted ? (
           <CheckCircle fill="#1BBC9B" onClick={onComplete} />
         ) : (
@@ -27,7 +28,11 @@ export default function TaskItem({
             </p>
           )}
         </Title>
-        <StyledMenuIcon onClick={openDetails} />
+        {isFavorite ? (
+          <FilledStarIcon fill="#1BBC9B" onClick={onFavorite} />
+        ) : (
+          <OutlinedStarIcon fill="#128069" onClick={onFavorite} />
+        )}
       </TaskContainer>
     </>
   );
@@ -50,8 +55,12 @@ const TaskContainer = styled.div`
   }
 `;
 
-const StyledMenuIcon = styled(MenuIcon)`
-  fill: #128069;
+const FilledStarIcon = styled(CheckStarIcon)`
+  position: absolute;
+  right: 0;
+`;
+
+const OutlinedStarIcon = styled(UncheckStarIcon)`
   position: absolute;
   right: 0;
 `;
@@ -81,3 +90,5 @@ const Title = styled.div`
       }
     }
   `) : 'margin: 10px 0px;')}`;
+
+export default TaskItem;

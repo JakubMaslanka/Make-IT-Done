@@ -7,25 +7,27 @@ import 'react-calendar/dist/Calendar.css';
 import DropdownCalendarMenu from './DropdownCalendarMenu';
 import DropdownPomodoroMenu from './DropdownPomodoroMenu';
 import DropdownRepeatMenu from './DropdownRepeatMenu';
-import useClickOutsideHook from '../../utilities/useClickOutsideHook';
 
 import { ReactComponent as PublishIcon } from '../../utilities/assets/submit_icon.svg';
 import { ReactComponent as DataPickUpIcon } from '../../utilities/assets/data_pickup_icon.svg';
 import { ReactComponent as PomodoroClockIcon } from '../../utilities/assets/pomodoro_clock_icon.svg';
 import { ReactComponent as RepeatCountIcon } from '../../utilities/assets/repeat_count_icon.svg';
 
-export default function TasksCreator({ onCreate }) {
+import useClickOutsideHook from '../../utilities/useClickOutsideHook';
+
+function TasksCreator({ onCreate }) {
   const tasksTitle = useRef(null);
 
   const [pickedDate, onPickedDate] = useState(null);
   const [isCalendarOpen, onCalendarOpen] = useState(false);
 
-  const handleTaskSubmit = (e) => {
+  const handleTaskCreate = (e) => {
     e.preventDefault();
     onCreate({
       id: new Date().getMilliseconds(),
       title: tasksTitle.current.value,
       isCompleted: false,
+      isFavorite: false,
       deadline: pickedDate ? Date.parse(pickedDate) : null,
       timeStump: moment().format(),
     });
@@ -40,15 +42,14 @@ export default function TasksCreator({ onCreate }) {
     }
   };
 
-  const handleCalendarOpen = (para) => onCalendarOpen(para);
   const domNode = useClickOutsideHook(() => onCalendarOpen(false));
 
   return (
 
-    <TaskCreatorContainer>
+    <CreatorContainer>
       <div ref={domNode}>
         {isCalendarOpen && (
-        <StyledMiniCalendar
+        <DatePicker
           onClickDay={handleDateSubmit}
           onChange={onPickedDate}
           value={new Date() || pickedDate}
@@ -56,7 +57,7 @@ export default function TasksCreator({ onCreate }) {
         />
         )}
       </div>
-      <FormContainer onSubmit={handleTaskSubmit}>
+      <FormContainer onSubmit={handleTaskCreate}>
         <SubmitButton type="submit">
           <PublishIcon />
         </SubmitButton>
@@ -64,7 +65,7 @@ export default function TasksCreator({ onCreate }) {
         <TaskOptions>
           <DropdownCalendarMenu
             onDatePick={handleDateSubmit}
-            isOpen={handleCalendarOpen}
+            isOpen={(state) => onCalendarOpen(state)}
             icon={<DataPickUpIcon />}
             label={pickedDate ? moment(pickedDate).format('ddd, D MMMM') : null}
           />
@@ -72,11 +73,11 @@ export default function TasksCreator({ onCreate }) {
           <DropdownRepeatMenu icon={<RepeatCountIcon />} />
         </TaskOptions>
       </FormContainer>
-    </TaskCreatorContainer>
+    </CreatorContainer>
   );
 }
 
-const StyledMiniCalendar = styled(Calendar)`
+const DatePicker = styled(Calendar)`
   position: absolute;
   top: -270px;
   right: 0;
@@ -138,9 +139,11 @@ const FormContainer = styled.form`
   border-radius: 10px;
 `;
 
-const TaskCreatorContainer = styled.div`
+const CreatorContainer = styled.div`
   position: fixed;
   bottom: 0;
   margin: 0px 10px 75px 10px;
   width: calc(100% - 20px);
 `;
+
+export default TasksCreator;
