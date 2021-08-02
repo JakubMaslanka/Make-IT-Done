@@ -5,30 +5,36 @@ import moment from 'moment';
 import { ReactComponent as CheckCircle } from '../utilities/assets/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_circle_icon.svg';
 import { ReactComponent as SmallCalendar } from '../utilities/assets/calendar_icon.svg';
+import { ReactComponent as NoteCalendar } from '../utilities/assets/note_logo.svg';
 import { ReactComponent as UncheckStarIcon } from '../utilities/assets/uncheck_star_icon.svg';
 import { ReactComponent as CheckStarIcon } from '../utilities/assets/check_star_icon.svg';
 
 function TaskItem({
-  title, deadline, isCompleted, onComplete, isFavorite, onFavorite, openEditor,
+  task, onComplete, onFavorite, openEditor,
 }) {
   return (
     <>
       <TaskContainer onClick={(e) => (e.target.childElementCount >= 3 ? openEditor(e) : null)}>
-        {isCompleted ? (
+        {task.isCompleted ? (
           <CheckCircle fill="#1BBC9B" onClick={onComplete} />
         ) : (
           <UncheckCircle fill="#128069" onClick={onComplete} />
         )}
-        <Title isCompleted={isCompleted} isDateSet={deadline}>
-          <h3>{title}</h3>
-          {deadline && (
+        <Title isCompleted={task.isCompleted} areDetailsSet={task.deadline || task.description}>
+          <h3>{task.title}</h3>
+          <div className="taskInfo">
+            {task.description && (
+            <p><NoteCalendar /></p>
+            )}
+            {task.deadline && (
             <p>
               <SmallCalendar />
-              {moment(deadline).format('ddd, D MMMM')}
+              {moment(task.deadline).format('ddd, D MMMM')}
             </p>
-          )}
+            )}
+          </div>
         </Title>
-        {isFavorite ? (
+        {task.isFavorite ? (
           <FilledStarIcon fill="#1BBC9B" onClick={onFavorite} />
         ) : (
           <OutlinedStarIcon fill="#128069" onClick={onFavorite} />
@@ -72,7 +78,12 @@ const Title = styled.div`
     color: #FFFFFF;
     ${(props) => (props.isCompleted ? 'text-decoration: line-through;' : '')};
   }
-  ${(props) => (props.isDateSet ? (`
+  ${(props) => (props.areDetailsSet ? (`
+    .taskInfo{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
     h3{
       margin: 10px 0px 0px 0px;
     }

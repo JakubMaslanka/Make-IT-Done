@@ -5,7 +5,7 @@ export default function useClickOutsideHook(handler) {
 
   useEffect(() => {
     const onCloseHandler = (e) => {
-      if (!domNode.current.contains(e.target)) {
+      if (domNode.current && !domNode.current.contains(e.target)) {
         handler();
       }
     };

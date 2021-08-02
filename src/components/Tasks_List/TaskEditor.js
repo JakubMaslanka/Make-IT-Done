@@ -4,6 +4,10 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
+import Calendar from 'react-calendar';
+import DropdownCalendarMenu from './Tasks_Creator/DropdownCalendarMenu';
+import DropdownPomodoroMenu from './Tasks_Creator/DropdownPomodoroMenu';
+import DropdownRepeatMenu from './Tasks_Creator/DropdownRepeatMenu';
 import { ReactComponent as CheckCircle } from '../utilities/assets/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_circle_icon.svg';
 import { ReactComponent as UncheckStarIcon } from '../utilities/assets/uncheck_star_icon.svg';
@@ -11,6 +15,8 @@ import { ReactComponent as CheckStarIcon } from '../utilities/assets/check_star_
 import { ReactComponent as TrashIcon } from '../utilities/assets/trash_icon.svg';
 import { ReactComponent as ArrowRight } from '../utilities/assets/arrow_right_icon.svg';
 import { ReactComponent as DataPickUpIcon } from '../utilities/assets/data_pickup_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../utilities/assets/pomodoro_clock_icon.svg';
+import { ReactComponent as RepeatCountIcon } from '../utilities/assets/repeat_count_icon.svg';
 
 import useClickOutsideHook from '../utilities/useClickOutsideHook';
 
@@ -19,6 +25,8 @@ function TaskEditor({
 }) {
   const [taskToEdit] = tasks.filter((task) => task.id === id);
   const [newTitle, setNewTitle] = useState(taskToEdit.title);
+  const [pickedDate, onPickedDate] = useState(taskToEdit.deadline || null);
+  const [isCalendarOpen, onCalendarOpen] = useState(false);
   const [taskDescription, setTaskDescription] = useState(taskToEdit.description || '');
 
   const handleTitleEdit = () => onEdit(taskToEdit.id, { ...taskToEdit, title: newTitle });
@@ -26,6 +34,12 @@ function TaskEditor({
   const handleFavoriteMark = () => onEdit(taskToEdit.id, { ...taskToEdit, isFavorite: !taskToEdit.isFavorite });
   const handleDescriptionEdit = () => onEdit(taskToEdit.id, { ...taskToEdit, description: taskDescription });
   const handleDelete = () => (window.confirm('Are you sure you want to delete this task?') ? onDelete() : null);
+  const handleDateEdit = (date) => {
+    if (pickedDate !== date) {
+      onEdit(taskToEdit.id, { ...taskToEdit, deadline: date ? Date.parse(date) : null });
+      onCalendarOpen(false);
+    }
+  };
 
   const domNode = useClickOutsideHook(onClose);
 
@@ -45,10 +59,32 @@ function TaskEditor({
             <UncheckStarIcon fill="#128069" onClick={handleFavoriteMark} />
           )}
         </div>
-        <Option>
-          <DataPickUpIcon fill="#128069" />
-          <p>Add deadline</p>
-        </Option>
+        {isCalendarOpen && (
+        <DatePicker
+          onClickDay={handleDateEdit}
+          onChange={onPickedDate}
+          value={new Date() || pickedDate}
+          locale="en-EN"
+        />
+        )}
+        <DropdownCalendarMenu
+          editorStyle
+          deadline={taskToEdit.deadline}
+          onDatePick={handleDateEdit}
+          isOpen={(state) => onCalendarOpen(state)}
+          icon={<DataPickUpIcon fill="#128069" />}
+          label={taskToEdit.deadline ? moment(taskToEdit.deadline).format('ddd, D MMMM') : 'Add deadline'}
+        />
+        <DropdownPomodoroMenu
+          editorStyle
+          icon={<PomodoroClockIcon fill="#128069" />}
+          label="Set Pomodros"
+        />
+        <DropdownRepeatMenu
+          editorStyle
+          icon={<RepeatCountIcon fill="#128069" />}
+          label="Set Repeats"
+        />
         <textarea maxLength="150" onBlur={handleDescriptionEdit} onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription} type="text" placeholder="Add a note" />
         <div className="footerContainer">
           <ArrowRight fill="#128069" onClick={onClose} />
@@ -68,6 +104,11 @@ const slideInAnimation = keyframes`
   100% {
     transform: translateX(0%)
   }
+`;
+
+const DatePicker = styled(Calendar)`
+  position: absolute;
+  border-radius: 2%;
 `;
 
 const EditorContainer = styled.div`
@@ -155,34 +196,6 @@ const EditorContainer = styled.div`
         fill: #1BBC9B;
     }
     }
-`;
-
-const Option = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  align-items: center;
-  justify-content: flex-start;
-  background: rgba(63, 88, 115, 1);
-  padding: 0px 15px;
-  border-radius: 10px;
-  color: white;
-  margin-bottom: 25px;
-  cursor: pointer;
-  &:hover{
-    transition: background 0.2s ease;
-    background: rgba(63, 88, 115, .6);
-  }
-  svg{
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    &:hover{
-      transition: all 0.2s ease;
-      fill: #1BBC9B;
-    }
-  }
 `;
 
 const GreyedOutBackground = styled.div`

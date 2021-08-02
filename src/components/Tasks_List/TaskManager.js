@@ -47,10 +47,7 @@ function TaskManager() {
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
-          title={task.title}
-          deadline={task.deadline}
-          isCompleted={task.isCompleted}
-          isFavorite={task.isFavorite}
+          task={task}
           openEditor={() => setCurrentEditingTaskId(task.id)}
           onComplete={() => editTask(task.id, { ...task, isCompleted: !task.isCompleted })}
           onFavorite={() => editTask(task.id, { ...task, isFavorite: !task.isFavorite })}

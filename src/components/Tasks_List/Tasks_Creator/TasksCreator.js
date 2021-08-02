@@ -67,6 +67,7 @@ function TasksCreator({ onCreate }) {
             onDatePick={handleDateSubmit}
             isOpen={(state) => onCalendarOpen(state)}
             icon={<DataPickUpIcon />}
+            deadline={pickedDate}
             label={pickedDate ? moment(pickedDate).format('ddd, D MMMM') : null}
           />
           <DropdownPomodoroMenu icon={<PomodoroClockIcon />} />
