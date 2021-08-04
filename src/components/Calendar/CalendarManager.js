@@ -2,32 +2,17 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import useCalendar from '../utilities/useCalendar';
 
 import MonthIndicator from './MonthIndicator';
 import TasksModalMenu from './TasksModalMenu';
+import { TasksContext } from '../context/TasksContext';
 
 export default function CalendarManager() {
-  const [tasks, setTask] = useState([
-    {
-      title: 'Test12345678910111213141516171819', isCompleted: true, id: 5, deadline: '7/21/2021',
-    },
-    {
-      title: 'Test2', isCompleted: false, id: 55, deadline: '7/21/2021',
-    },
-    {
-      title: 'Test6', isCompleted: false, id: 5555, deadline: '7/21/2021',
-    },
-    {
-      title: 'Test3', isCompleted: false, id: 555, deadline: '7/10/2021',
-    },
-    {
-      title: 'Test4', isCompleted: false, id: 55555, deadline: '7/11/2021',
-    },
-  ]);
+  const { tasks, setTask } = useContext(TasksContext);
   const [month, setMonth] = useState(0);
   const [selected, setSelected] = useState(null);
   const { days, dateDisplay } = useCalendar(tasks, month);

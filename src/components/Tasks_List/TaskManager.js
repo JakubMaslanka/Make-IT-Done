@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TasksCreator from './Tasks_Creator/TasksCreator';
 import TaskItem from './TaskItem';
 import TaskEditor from './TaskEditor';
 
+import { TasksContext } from '../context/TasksContext';
+
 function TaskManager() {
-  const [tasks, setTask] = useState([
-    {
-      title: 'Test', isCompleted: false, id: 5, isFavorite: false, timeStump: '2021-07-30T18:49:42+02:00', deadline: '7/21/2021',
-    },
-    {
-      title: 'Test2', isCompleted: true, isFavorite: true, timeStump: '2021-08-01T18:49:42+02:00', id: 55,
-    },
-    {
-      title: 'Test3', isCompleted: false, isFavorite: true, timeStump: '2021-08-05T18:49:42+02:00', id: 555,
-    },
-  ]);
+  const { tasks, setTask } = useContext(TasksContext);
+
   const [currentEditingTaskId, setCurrentEditingTaskId] = useState(null);
 
   const addTask = (task) => {

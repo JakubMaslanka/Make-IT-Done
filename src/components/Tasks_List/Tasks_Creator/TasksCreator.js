@@ -28,7 +28,7 @@ function TasksCreator({ onCreate }) {
       title: tasksTitle.current.value,
       isCompleted: false,
       isFavorite: false,
-      deadline: pickedDate ? Date.parse(pickedDate) : null,
+      deadline: pickedDate ? moment(pickedDate).format('M/D/YYYY') : null,
       timeStump: moment().format(),
     });
     tasksTitle.current.value = '';

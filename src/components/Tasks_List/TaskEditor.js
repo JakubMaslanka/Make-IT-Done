@@ -36,7 +36,7 @@ function TaskEditor({
   const handleDelete = () => (window.confirm('Are you sure you want to delete this task?') ? onDelete() : null);
   const handleDateEdit = (date) => {
     if (pickedDate !== date) {
-      onEdit(taskToEdit.id, { ...taskToEdit, deadline: date ? Date.parse(date) : null });
+      onEdit(taskToEdit.id, { ...taskToEdit, deadline: date ? moment(date).format('M/D/YYYY') : null });
       onCalendarOpen(false);
     }
   };
