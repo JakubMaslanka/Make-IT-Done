@@ -1,14 +1,12 @@
 import React from 'react';
-import Settings from '../components/Pomodoro/Settings';
-import Countdown from '../components/Pomodoro/Countdown';
+import PomodoroManager from '../components/Pomodoro/PomodoroManager';
+// import TaskManager from '../components/Tasks_List/TaskManager';
 
 const Pomodoro = () => (
-  <div>
-    <h1>Pomodoro</h1>
-    <small>Be more productive!</small>
-    <Settings />
-    <Countdown />
-  </div>
+  <>
+    <PomodoroManager />
+    {/* <TaskManager /> */}
+  </>
 );
 
 export default Pomodoro;
