@@ -8,7 +8,8 @@ import styled from 'styled-components';
 import useCalendar from '../utilities/useCalendar';
 
 import MonthIndicator from './MonthIndicator';
-import TasksModalMenu from './TasksModalMenu';
+import ModalMenu from '../ModalMenu';
+import TasksForSelectedDay from './TasksForSelectedDay';
 import { TasksContext } from '../context/TasksContext';
 
 export default function CalendarManager() {
@@ -53,21 +54,26 @@ export default function CalendarManager() {
       </CalendarContainer>
       {
         selected && (
-          <TasksModalMenu
-            tasksInSelectedDay={tasksForDate(selected)}
-            selectedDay={selected}
+          <ModalMenu
+            title={`Tasks for ${selected}`}
             onClose={() => setSelected(null)}
-            onComplete={(taskIdx) => {
-              setTask(tasks.map((task) => (
-                task.id === taskIdx
-                  ? { ...task, isCompleted: !task.isCompleted }
-                  : task)));
-            }}
-            onCreate={({ title }) => {
-              setTask([...tasks, { title, id: new Date().getMilliseconds(), deadline: selected }]);
-              setSelected(null);
-            }}
-          />
+          >
+            <TasksForSelectedDay
+              tasksInSelectedDay={tasksForDate(selected)}
+              selectedDay={selected}
+              onComplete={(taskIdx) => {
+                setTask(tasks.map((task) => (
+                  task.id === taskIdx
+                    ? { ...task, isCompleted: !task.isCompleted }
+                    : task)));
+              }}
+              onCreate={({ title }) => {
+                setTask([...tasks,
+                  { title, id: new Date().getMilliseconds(), deadline: selected }]);
+                setSelected(null);
+              }}
+            />
+          </ModalMenu>
         )
       }
     </>
