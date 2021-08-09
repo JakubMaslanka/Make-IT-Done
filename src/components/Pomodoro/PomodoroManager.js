@@ -1,17 +1,23 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import Settings from './Settings';
+import PomodoroTasks from './PomodoroTasks';
 import ModalMenu from '../ModalMenu';
 import CountdownTimer from './CountdownTimer';
 
 import { ReactComponent as SettingsIcon } from '../utilities/assets/settings_icon.svg';
 import { ReactComponent as NextIcon } from '../utilities/assets/skip_next_icon.svg';
 
+import { TasksContext } from '../context/TasksContext';
+
 const PomodoroManager = () => {
+  const { tasks, editTask } = useContext(TasksContext);
+
+  const [activeTask, setActiveTask] = useState(tasks.find((task) => (task.pomodoro ? task : null)));
+  const [title, setTitle] = useState(activeTask ? `Working on ${tasks[0].title}` : 'Time to work!');
   const [timer, setTimer] = useState(0);
-  const [title, setTitle] = useState('Time to work!');
   const [modalMenu, setModalMenu] = useState(false);
   const [countdown, setCountdown] = useState(false);
   const [schedule, setSchedule] = useState({
@@ -23,24 +29,39 @@ const PomodoroManager = () => {
 
   const modalMenuToggle = () => setModalMenu((prevState) => !prevState);
   const stopAimate = () => setCountdown(false);
+  const setTitleValidation = (defaultTitle) => setTitle(activeTask ? `Working on ${activeTask.title}` : defaultTitle);
 
   const setTimerTime = (newSchedule) => {
     switch (newSchedule.active) {
       case 'work':
-        setTitle('Time to work!');
+        setTitleValidation('Time to work!');
         setTimer(newSchedule.work);
         break;
       case 'short':
-        setTitle('Time for a break!');
+        setTitleValidation('Time for a break!');
         setTimer(newSchedule.short);
         break;
       case 'long':
-        setTitle('Time for a longer break!');
+        setTitleValidation('Time for a longer break!');
         setTimer(newSchedule.long);
         break;
       default:
         setTimer(0);
         break;
+    }
+  };
+
+  const stopTimer = () => {
+    if (window.confirm('Are you sure, you want to stop the timer?')) {
+      stopAimate();
+      editTask(activeTask.id,
+        {
+          ...activeTask,
+          pomodoro: {
+            est: activeTask.pomodoro.est,
+            done: activeTask.pomodoro.done + 1,
+          },
+        });
     }
   };
 
@@ -59,7 +80,10 @@ const PomodoroManager = () => {
     setTimerTime(schedule);
   };
 
-  useEffect(() => { updateSchedule(schedule); }, [schedule, countdown]);
+  useEffect(() => {
+    updateSchedule(schedule);
+    setActiveTask(tasks.find((task) => (task.pomodoro ? task : null)));
+  }, [schedule, countdown]);
 
   return (
     <PomodoroTimerContainer>
@@ -126,7 +150,7 @@ const PomodoroManager = () => {
             bigger
             type="button"
             isActive={countdown}
-            onClick={() => (window.confirm('Are you sure, you want to stop the timer?') ? stopAimate() : null)}
+            onClick={stopTimer}
           >
             STOP
 
@@ -135,6 +159,12 @@ const PomodoroManager = () => {
         <NextIcon onClick={modalMenuToggle} />
       </ButtonContainer>
       <Title>{title}</Title>
+      <PomodoroTasks
+        tasks={tasks}
+        activeTask={activeTask}
+        setActiveTask={(task) => setActiveTask(task)}
+        setTitle={(newTitle) => setTitle(`Working on ${newTitle}`)}
+      />
     </PomodoroTimerContainer>
   );
 };

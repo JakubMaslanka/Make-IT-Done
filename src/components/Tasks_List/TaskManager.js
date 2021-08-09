@@ -6,22 +6,14 @@ import TaskEditor from './TaskEditor';
 import { TasksContext } from '../context/TasksContext';
 
 function TaskManager() {
-  const { tasks, setTask } = useContext(TasksContext);
+  const {
+    tasks,
+    addTask,
+    editTask,
+    removeTask,
+  } = useContext(TasksContext);
 
   const [currentEditingTaskId, setCurrentEditingTaskId] = useState(null);
-
-  const addTask = (task) => {
-    setTask((prevState) => ([task, ...prevState]));
-  };
-
-  const editTask = (taskIdx, editedTask) => {
-    setTask(tasks.map((task) => (task.id === taskIdx ? editedTask : task)));
-  };
-
-  const removeTask = (idToRemove) => {
-    setCurrentEditingTaskId(null);
-    setTask(tasks.filter((task) => idToRemove !== task.id));
-  };
 
   return (
     <>
@@ -33,7 +25,10 @@ function TaskManager() {
               tasks={tasks}
               onEdit={editTask}
               onClose={() => setCurrentEditingTaskId(null)}
-              onDelete={() => removeTask(currentEditingTaskId)}
+              onDelete={() => {
+                removeTask(currentEditingTaskId);
+                setCurrentEditingTaskId(null);
+              }}
             />
           </>
         )}
