@@ -15,15 +15,17 @@ import { TasksContext } from '../context/TasksContext';
 const PomodoroManager = () => {
   const { tasks, editTask } = useContext(TasksContext);
 
+  // Find other way to handle activeTasks
   const [activeTask, setActiveTask] = useState(tasks.find((task) => (task.pomodoro ? task : null)));
   const [title, setTitle] = useState(activeTask ? `Working on ${tasks[0].title}` : 'Time to work!');
   const [timer, setTimer] = useState(0);
-  const [modalMenu, setModalMenu] = useState(false);
   const [countdown, setCountdown] = useState(false);
+  const [round, setRound] = useState(1);
+  const [modalMenu, setModalMenu] = useState(false);
   const [schedule, setSchedule] = useState({
-    work: 25,
-    short: 5,
-    long: 15,
+    work: 0.1,
+    short: 0.1,
+    long: 0.1,
     active: 'work',
   });
 
@@ -51,20 +53,6 @@ const PomodoroManager = () => {
     }
   };
 
-  const stopTimer = () => {
-    if (window.confirm('Are you sure, you want to stop the timer?')) {
-      stopAimate();
-      editTask(activeTask.id,
-        {
-          ...activeTask,
-          pomodoro: {
-            est: activeTask.pomodoro.est,
-            done: activeTask.pomodoro.done + 1,
-          },
-        });
-    }
-  };
-
   const updateSchedule = (newSchedule) => {
     setModalMenu(false);
     setSchedule(newSchedule);
@@ -80,8 +68,47 @@ const PomodoroManager = () => {
     setTimerTime(schedule);
   };
 
+  const donePomodorosIncrement = () => editTask(activeTask.id, {
+    ...activeTask,
+    pomodoro: {
+      est: activeTask.pomodoro.est,
+      done: activeTask.pomodoro.done + 1,
+    },
+  });
+
+  const stopRound = () => {
+    if (window.confirm('Are you sure, you want to stop the timer?')) {
+      stopAimate();
+    }
+  };
+
+  const nextRound = () => {
+    switch (schedule.active) {
+      case 'work':
+        donePomodorosIncrement();
+        setRound((prevRound) => prevRound + 1);
+        if (round % 4 === 0) {
+          setCurrentTimer('long');
+        } else {
+          setCurrentTimer('short');
+        }
+        break;
+      case 'short':
+        setCurrentTimer('work');
+        break;
+      case 'long':
+        setRound(1);
+        setCurrentTimer('work');
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     updateSchedule(schedule);
+    // Found bug here, after choosing another task,
+    // list re render itself and selected first task as active
     setActiveTask(tasks.find((task) => (task.pomodoro ? task : null)));
   }, [schedule, countdown]);
 
@@ -131,7 +158,7 @@ const PomodoroManager = () => {
           active={schedule.active}
           timer={timer}
           animate={countdown}
-          stopAimate={stopAimate}
+          stopAimate={nextRound}
         />
       </CountdownContainer>
       <ButtonContainer>
@@ -150,13 +177,12 @@ const PomodoroManager = () => {
             bigger
             type="button"
             isActive={countdown}
-            onClick={stopTimer}
+            onClick={stopRound}
           >
             STOP
-
           </Button>
         )}
-        <NextIcon onClick={modalMenuToggle} />
+        <NextIcon onClick={() => (countdown && window.confirm('Are you sure you want to finish the round early?') ? nextRound() : null)} />
       </ButtonContainer>
       <Title>{title}</Title>
       <PomodoroTasks
