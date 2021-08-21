@@ -6,33 +6,27 @@ import styled from 'styled-components';
 import { ReactComponent as ArrowUp } from '../utilities/assets/arrow_up_icon.svg';
 import { ReactComponent as ArrowDrop } from '../utilities/assets/arrow_down_icon.svg';
 
-function Settings({ updateSchedule, currentSchedule }) {
-  const [newTimer, setNewTimer] = useState(currentSchedule
-    || {
-      work: 25,
-      short: 5,
-      long: 15,
-      active: 'work',
-    });
+const Settings = ({ updateRounds, currentRound }) => {
+  const [newRounds, setNewRounds] = useState(currentRound);
 
   const handleChange = (input) => {
     const { name, value } = input.target;
     switch (name) {
       case 'work':
-        setNewTimer({
-          ...newTimer,
+        setNewRounds({
+          ...newRounds,
           work: parseInt(value),
         });
         break;
       case 'shortBreak':
-        setNewTimer({
-          ...newTimer,
+        setNewRounds({
+          ...newRounds,
           short: parseInt(value),
         });
         break;
       case 'longBreak':
-        setNewTimer({
-          ...newTimer,
+        setNewRounds({
+          ...newRounds,
           long: parseInt(value),
         });
         break;
@@ -42,21 +36,21 @@ function Settings({ updateSchedule, currentSchedule }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateSchedule(newTimer);
+    updateRounds(newRounds);
   };
   return (
     <SettingsContainer>
       <form onSubmit={handleSubmit}>
         <InputsContainer>
-          <InputComp timerName="work" header="Work" timerValue={newTimer.work} handleChange={handleChange} />
-          <InputComp timerName="shortBreak" header="Short Break" timerValue={newTimer.short} handleChange={handleChange} />
-          <InputComp timerName="longBreak" header="Long Break" timerValue={newTimer.long} handleChange={handleChange} />
+          <InputComp timerName="work" header="Work" timerValue={newRounds.work} handleChange={handleChange} />
+          <InputComp timerName="shortBreak" header="Short Break" timerValue={newRounds.short} handleChange={handleChange} />
+          <InputComp timerName="longBreak" header="Long Break" timerValue={newRounds.long} handleChange={handleChange} />
         </InputsContainer>
         <button type="submit">Set Timer</button>
       </form>
     </SettingsContainer>
   );
-}
+};
 
 const InputComp = ({
   timerName, handleChange, timerValue, header,

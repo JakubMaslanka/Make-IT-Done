@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useContext } from 'react';
@@ -12,40 +13,41 @@ import { ReactComponent as NextIcon } from '../utilities/assets/skip_next_icon.s
 
 import { TasksContext } from '../context/TasksContext';
 
-const PomodoroManager = () => {
+function PomodoroManager() {
   const { tasks, editTask } = useContext(TasksContext);
+  const pomodoroTasks = tasks.filter((task) => task.pomodoro);
 
-  // Find other way to handle activeTasks
-  const [activeTask, setActiveTask] = useState(tasks.find((task) => (task.pomodoro ? task : null)));
-  const [title, setTitle] = useState(activeTask ? `Working on ${tasks[0].title}` : 'Time to work!');
+  const [activeTaskId, setActiveTaskId] = useState(pomodoroTasks.length > 0 ? pomodoroTasks[0].id : null);
+  const [title, setTitle] = useState(pomodoroTasks.length > 0 ? `Working on ${pomodoroTasks[0].title}` : 'Time to work!');
   const [timer, setTimer] = useState(0);
   const [countdown, setCountdown] = useState(false);
-  const [round, setRound] = useState(1);
+  const [roundNumber, setRoundNumber] = useState(1);
   const [modalMenu, setModalMenu] = useState(false);
-  const [schedule, setSchedule] = useState({
-    work: 0.1,
-    short: 0.1,
-    long: 0.1,
+  const [rounds, setRounds] = useState({
+    work: 25,
+    short: 5,
+    long: 15,
     active: 'work',
   });
 
+  const taskFromId = pomodoroTasks.find((task) => task.id === activeTaskId);
   const modalMenuToggle = () => setModalMenu((prevState) => !prevState);
+  const setTaskTitle = (defaultTitle) => setTitle(taskFromId ? `Working on ${taskFromId.title}` : defaultTitle);
   const stopAimate = () => setCountdown(false);
-  const setTitleValidation = (defaultTitle) => setTitle(activeTask ? `Working on ${activeTask.title}` : defaultTitle);
 
-  const setTimerTime = (newSchedule) => {
-    switch (newSchedule.active) {
+  const setTimerTime = (newRound) => {
+    switch (newRound.active) {
       case 'work':
-        setTitleValidation('Time to work!');
-        setTimer(newSchedule.work);
+        setTaskTitle('Time to work!');
+        setTimer(newRound.work);
         break;
       case 'short':
-        setTitleValidation('Time for a break!');
-        setTimer(newSchedule.short);
+        setTaskTitle('Time for a break!');
+        setTimer(newRound.short);
         break;
       case 'long':
-        setTitleValidation('Time for a longer break!');
-        setTimer(newSchedule.long);
+        setTaskTitle('Time for a longer break!');
+        setTimer(newRound.long);
         break;
       default:
         setTimer(0);
@@ -53,28 +55,31 @@ const PomodoroManager = () => {
     }
   };
 
-  const updateSchedule = (newSchedule) => {
+  const updateRounds = (newRound) => {
     setModalMenu(false);
-    setSchedule(newSchedule);
-    setTimerTime(newSchedule);
+    setRounds(newRound);
+    setTimerTime(newRound);
   };
 
   const setCurrentTimer = (activeTimer) => {
     stopAimate();
-    updateSchedule({
-      ...schedule,
+    updateRounds({
+      ...rounds,
       active: activeTimer,
     });
-    setTimerTime(schedule);
+    setTimerTime(rounds);
   };
 
-  const donePomodorosIncrement = () => editTask(activeTask.id, {
-    ...activeTask,
-    pomodoro: {
-      est: activeTask.pomodoro.est,
-      done: activeTask.pomodoro.done + 1,
-    },
-  });
+  const taskDoneValueIncrement = () => {
+    editTask(taskFromId.id, {
+      ...taskFromId,
+      isCompleted: taskFromId.pomodoro.done + 1 >= taskFromId.pomodoro.est,
+      pomodoro: {
+        est: taskFromId.pomodoro.est,
+        done: taskFromId.pomodoro.done + 1,
+      },
+    });
+  };
 
   const stopRound = () => {
     if (window.confirm('Are you sure, you want to stop the timer?')) {
@@ -83,11 +88,13 @@ const PomodoroManager = () => {
   };
 
   const nextRound = () => {
-    switch (schedule.active) {
+    switch (rounds.active) {
       case 'work':
-        donePomodorosIncrement();
-        setRound((prevRound) => prevRound + 1);
-        if (round % 4 === 0) {
+        if (taskFromId) {
+          taskDoneValueIncrement();
+        }
+        setRoundNumber((prevRound) => prevRound + 1);
+        if (roundNumber % 4 === 0) {
           setCurrentTimer('long');
         } else {
           setCurrentTimer('short');
@@ -97,7 +104,7 @@ const PomodoroManager = () => {
         setCurrentTimer('work');
         break;
       case 'long':
-        setRound(1);
+        setRoundNumber(1);
         setCurrentTimer('work');
         break;
       default:
@@ -105,12 +112,7 @@ const PomodoroManager = () => {
     }
   };
 
-  useEffect(() => {
-    updateSchedule(schedule);
-    // Found bug here, after choosing another task,
-    // list re render itself and selected first task as active
-    setActiveTask(tasks.find((task) => (task.pomodoro ? task : null)));
-  }, [schedule, countdown]);
+  useEffect(() => updateRounds(rounds), [rounds, countdown]);
 
   return (
     <PomodoroTimerContainer>
@@ -120,14 +122,14 @@ const PomodoroManager = () => {
           title="Set your intervals!"
           onClose={modalMenuToggle}
         >
-          <Settings currentSchedule={schedule} updateSchedule={updateSchedule} />
+          <Settings currentRound={rounds} updateRounds={updateRounds} />
         </ModalMenu>
       )}
-      <TimersList activeButton={schedule.active}>
+      <TimersList>
         <li>
           <Button
             type="button"
-            className={schedule.active === 'work' ? 'activeWorkButton' : undefined}
+            activeButton={rounds.active === 'work' && 'work'}
             onClick={() => setCurrentTimer('work')}
           >
             Work
@@ -136,7 +138,7 @@ const PomodoroManager = () => {
         <li>
           <Button
             type="button"
-            className={schedule.active === 'short' ? 'activeShortButton' : undefined}
+            activeButton={rounds.active === 'short' && 'short'}
             onClick={() => setCurrentTimer('short')}
           >
             Short Break
@@ -145,7 +147,7 @@ const PomodoroManager = () => {
         <li>
           <Button
             type="button"
-            className={schedule.active === 'long' ? 'activeLongButton' : undefined}
+            activeButton={rounds.active === 'long' && 'long'}
             onClick={() => setCurrentTimer('long')}
           >
             Long Break
@@ -155,7 +157,7 @@ const PomodoroManager = () => {
       <CountdownContainer>
         <CountdownTimer
           uniqueKey={new Date().getMilliseconds()}
-          active={schedule.active}
+          active={rounds.active}
           timer={timer}
           animate={countdown}
           stopAimate={nextRound}
@@ -176,7 +178,7 @@ const PomodoroManager = () => {
           <Button
             bigger
             type="button"
-            isActive={countdown}
+            activeButton={countdown && 'work'}
             onClick={stopRound}
           >
             STOP
@@ -186,14 +188,14 @@ const PomodoroManager = () => {
       </ButtonContainer>
       <Title>{title}</Title>
       <PomodoroTasks
-        tasks={tasks}
-        activeTask={activeTask}
-        setActiveTask={(task) => setActiveTask(task)}
+        tasks={pomodoroTasks}
+        activeTaskId={activeTaskId}
+        setActiveTaskId={(taskId) => setActiveTaskId(taskId)}
         setTitle={(newTitle) => setTitle(`Working on ${newTitle}`)}
       />
     </PomodoroTimerContainer>
   );
-};
+}
 
 export default PomodoroManager;
 
@@ -217,15 +219,6 @@ const TimersList = styled.ul`
     background-color: #2D3E50;
     border-radius: 24px;
     color: #efefef;
-    .activeWorkButton {
-        background-color: #FE4D4C;
-    }
-    .activeShortButton {
-        background-color: #1BBC9B;
-    }
-    .activeLongButton {
-        background-color: #28D1F8;
-    }
 `;
 
 const CountdownContainer = styled.div`
@@ -250,8 +243,24 @@ const Button = styled.button`
     margin: 4px;
     min-width: 80px;
     cursor: pointer;
+    ${(props) => {
+    let backgroundColor = 'background-color: #2D3E50';
+    switch (props.activeButton) {
+      case 'work':
+        backgroundColor = 'background-color: #FE4D4C';
+        break;
+      case 'short':
+        backgroundColor = 'background-color: #1BBC9B';
+        break;
+      case 'long':
+        backgroundColor = 'background-color: #28D1F8';
+        break;
+      default:
+        break;
+    }
+    return backgroundColor;
+  }};
     ${(props) => (props.bigger ? 'padding: 14px 32px;' : null)};
-    ${(props) => (props.isActive ? 'background-color: #FE4D4C;' : 'background-color: #2D3E50;')};
 `;
 
 const ButtonContainer = styled.div`
