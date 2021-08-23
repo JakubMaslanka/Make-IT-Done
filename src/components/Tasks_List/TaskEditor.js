@@ -25,8 +25,8 @@ function TaskEditor({
 }) {
   const [taskToEdit] = tasks.filter((task) => task.id === id);
   const [newTitle, setNewTitle] = useState(taskToEdit.title);
-  const [pickedDate, onPickedDate] = useState(taskToEdit.deadline || null);
-  const [isCalendarOpen, onCalendarOpen] = useState(false);
+  const [date, setDate] = useState(taskToEdit.deadline || null);
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const [taskDescription, setTaskDescription] = useState(taskToEdit.description || '');
 
   const handleTitleEdit = () => onEdit(taskToEdit.id, { ...taskToEdit, title: newTitle });
@@ -34,10 +34,26 @@ function TaskEditor({
   const handleFavoriteMark = () => onEdit(taskToEdit.id, { ...taskToEdit, isFavorite: !taskToEdit.isFavorite });
   const handleDescriptionEdit = () => onEdit(taskToEdit.id, { ...taskToEdit, description: taskDescription });
   const handleDelete = () => (window.confirm('Are you sure you want to delete this task?') ? onDelete() : null);
-  const handleDateEdit = (date) => {
-    if (pickedDate !== date) {
+  const handleDateEdit = (pickedDate) => {
+    if (date !== pickedDate) {
       onEdit(taskToEdit.id, { ...taskToEdit, deadline: date ? moment(date).format('M/D/YYYY') : null });
-      onCalendarOpen(false);
+      setCalendarOpen(false);
+    }
+  };
+  const handlePomodorosEdit = (pickedPomodoros) => {
+    if (taskToEdit.pomodoro) {
+      onEdit(taskToEdit.id, {
+        ...taskToEdit,
+        pomodoro: pickedPomodoros === null ? null : { est: pickedPomodoros, done: taskToEdit.pomodoro.done },
+      });
+    } else {
+      onEdit(taskToEdit.id, {
+        ...taskToEdit,
+        pomodoro: {
+          est: pickedPomodoros,
+          done: 0,
+        },
+      });
     }
   };
 
@@ -59,11 +75,11 @@ function TaskEditor({
             <UncheckStarIcon fill="#128069" onClick={handleFavoriteMark} />
           )}
         </div>
-        {isCalendarOpen && (
+        {calendarOpen && (
         <DatePicker
           onClickDay={handleDateEdit}
-          onChange={onPickedDate}
-          value={new Date() || pickedDate}
+          onChange={setDate}
+          value={new Date() || date}
           locale="en-EN"
         />
         )}
@@ -71,14 +87,16 @@ function TaskEditor({
           editorStyle
           deadline={taskToEdit.deadline}
           onDatePick={handleDateEdit}
-          isOpen={(state) => onCalendarOpen(state)}
+          isOpen={(state) => setCalendarOpen(state)}
           icon={<DataPickUpIcon fill="#128069" />}
           label={taskToEdit.deadline ? moment(taskToEdit.deadline).format('ddd, D MMMM') : 'Add deadline'}
         />
         <DropdownPomodoroMenu
           editorStyle
+          onPomodorosPick={handlePomodorosEdit}
+          isPomodoroSet={taskToEdit.pomodoro}
           icon={<PomodoroClockIcon fill="#128069" />}
-          label="Set Pomodros"
+          label={taskToEdit.pomodoro ? `${taskToEdit.pomodoro.est} Pomodoros` : 'Set Pomodoros'}
         />
         <DropdownRepeatMenu
           editorStyle

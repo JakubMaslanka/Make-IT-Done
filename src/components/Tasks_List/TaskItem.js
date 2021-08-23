@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { ReactComponent as CheckCircle } from '../utilities/assets/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_circle_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../utilities/assets/pomodoro_clock_icon.svg';
 import { ReactComponent as SmallCalendar } from '../utilities/assets/calendar_icon.svg';
 import { ReactComponent as NoteCalendar } from '../utilities/assets/note_logo.svg';
 import { ReactComponent as UncheckStarIcon } from '../utilities/assets/uncheck_star_icon.svg';
@@ -20,9 +21,12 @@ function TaskItem({
         ) : (
           <UncheckCircle fill="#128069" onClick={onComplete} />
         )}
-        <Title isCompleted={task.isCompleted} areDetailsSet={task.deadline || task.description}>
-          <h3>{task.title}</h3>
-          <div className="taskInfo">
+        <Title
+          isCompleted={task.isCompleted}
+          areDetailsSet={task.deadline || task.description || task.pomodoro}
+        >
+          <h3>{task.title.length > 25 ? `${task.title.substring(0, 24)}...` : `${task.title}`}</h3>
+          <TaskDetails>
             {task.description && (
             <p><NoteCalendar /></p>
             )}
@@ -32,7 +36,13 @@ function TaskItem({
               {moment(task.deadline).format('ddd, D MMMM')}
             </p>
             )}
-          </div>
+            {task.pomodoro && (
+            <p>
+              <PomodoroClockIcon />
+              {`${task.pomodoro.done}/${task.pomodoro.est}`}
+            </p>
+            )}
+          </TaskDetails>
         </Title>
         {task.isFavorite ? (
           <FilledStarIcon fill="#1BBC9B" onClick={onFavorite} />
@@ -72,6 +82,8 @@ const OutlinedStarIcon = styled(UncheckStarIcon)`
 `;
 
 const Title = styled.div`
+  display: flex;
+  flex-direction: column;
   h3{
     margin: 7.5px 0px;
     font-size: 1.28rem;
@@ -79,27 +91,33 @@ const Title = styled.div`
     ${(props) => (props.isCompleted ? 'text-decoration: line-through;' : '')};
   }
   ${(props) => (props.areDetailsSet ? (`
-    .taskInfo{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
     h3{
       margin: 10px 0px 0px 0px;
     }
-    p{
-      display: flex;
-      flex-direction: row;
-      margin: 0px 0px 10px 0px;
-      font-size: .85rem;
-      color: #AFAFAF;
-      svg {
-        margin: 2px 5px 0px 0px;
-        width: 14px;
-        height: 14px;
-        fill: #AFAFAF;
-      }
-    }
   `) : 'margin: 10px 0px;')}`;
+
+const TaskDetails = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+      h3{
+        margin: 10px 0px 0px 0px;
+      }
+      p{
+        display: flex;
+        flex-direction: row;
+        margin: 0px 0px 10px 0px;
+        font-size: .85rem;
+        color: #AFAFAF;
+        svg {
+          margin: 3px 4px 0px 0px;
+          width: 14px;
+          height: 14px;
+          fill: #AFAFAF;
+        }
+      }
+`;
 
 export default TaskItem;

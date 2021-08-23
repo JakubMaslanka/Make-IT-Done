@@ -18,7 +18,8 @@ import useClickOutsideHook from '../../utilities/useClickOutsideHook';
 function TasksCreator({ onCreate }) {
   const tasksTitle = useRef(null);
 
-  const [pickedDate, onPickedDate] = useState(null);
+  const [date, setDate] = useState(null);
+  const [pomodoroEst, setPomodoroEst] = useState(null);
   const [isCalendarOpen, onCalendarOpen] = useState(false);
 
   const handleTaskCreate = (e) => {
@@ -28,18 +29,27 @@ function TasksCreator({ onCreate }) {
       title: tasksTitle.current.value,
       isCompleted: false,
       isFavorite: false,
-      deadline: pickedDate ? moment(pickedDate).format('M/D/YYYY') : null,
+      deadline: date ? moment(date).format('M/D/YYYY') : null,
+      pomodoro: pomodoroEst ? {
+        est: pomodoroEst,
+        done: 0,
+      } : null,
       timeStump: moment().format(),
     });
     tasksTitle.current.value = '';
-    onPickedDate(null);
+    setDate(null);
+    setPomodoroEst(null);
   };
 
-  const handleDateSubmit = (date) => {
+  const handleDateSubmit = (pickedDate) => {
     if (pickedDate !== date) {
-      onPickedDate(date);
+      setDate(pickedDate);
       onCalendarOpen(false);
     }
+  };
+
+  const handlePomodorosSubmit = (pickedPomodoros) => {
+    setPomodoroEst(pickedPomodoros);
   };
 
   const domNode = useClickOutsideHook(() => onCalendarOpen(false));
@@ -51,8 +61,8 @@ function TasksCreator({ onCreate }) {
         {isCalendarOpen && (
         <DatePicker
           onClickDay={handleDateSubmit}
-          onChange={onPickedDate}
-          value={new Date() || pickedDate}
+          onChange={setDate}
+          value={new Date() || date}
           locale="en-EN"
         />
         )}
@@ -67,10 +77,15 @@ function TasksCreator({ onCreate }) {
             onDatePick={handleDateSubmit}
             isOpen={(state) => onCalendarOpen(state)}
             icon={<DataPickUpIcon />}
-            deadline={pickedDate}
-            label={pickedDate ? moment(pickedDate).format('ddd, D MMMM') : null}
+            deadline={date}
+            label={date ? moment(date).format('ddd, D MMMM') : null}
           />
-          <DropdownPomodoroMenu icon={<PomodoroClockIcon />} />
+          <DropdownPomodoroMenu
+            icon={<PomodoroClockIcon />}
+            onPomodorosPick={handlePomodorosSubmit}
+            isPomodoroSet={pomodoroEst}
+            label={pomodoroEst ? `${pomodoroEst} Pomodoros` : null}
+          />
           <DropdownRepeatMenu icon={<RepeatCountIcon />} />
         </TaskOptions>
       </FormContainer>

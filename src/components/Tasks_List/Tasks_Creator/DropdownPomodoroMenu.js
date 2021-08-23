@@ -1,14 +1,23 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import useClickOutsideHook from '../../utilities/useClickOutsideHook';
+import { ReactComponent as TrashIcon } from '../../utilities/assets/trash_icon.svg';
+import { ReactComponent as ArrowUp } from '../../utilities/assets/arrow_up_icon.svg';
+import { ReactComponent as ArrowDrop } from '../../utilities/assets/arrow_down_icon.svg';
 
 export default function DropdownPomodoroMenu({
-  icon, label, editorStyle,
+  icon, label, editorStyle, onPomodorosPick, isPomodoroSet,
 }) {
   const [open, setOpen] = useState(false);
+  const [customPomodorosView, setCustomPomodorosView] = useState(false);
+  const [customPomodorosCounts, setCustomPomodorosCounts] = useState(1);
   const [position, setPosition] = useState(0);
-  const domNode = useClickOutsideHook(() => setOpen(false));
+  const domNode = useClickOutsideHook(() => {
+    setOpen(false);
+    setCustomPomodorosView(false);
+  });
 
   return (
     <DropdownMenuContainer editorStyle={editorStyle} ref={domNode}>
@@ -22,35 +31,142 @@ export default function DropdownPomodoroMenu({
               fromRight: (window.innerWidth - e.pageX) - 210,
             });
           }
-          setOpen(!open);
+          setOpen(!customPomodorosView && !open);
         }}
       >
         {icon}
         <p>{label}</p>
       </LabelContainer>
 
-      <MenuContainer position={position}>
+      <MenuContainer heightIncrease={label ? -235 : -175} position={position}>
         {open && (
           <>
-            <MenuItem>
+            <MenuItem onClick={() => {
+              onPomodorosPick(1);
+              setOpen(false);
+            }}
+            >
               <p>1 Pomodoros</p>
               <p>(25min)</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => {
+              onPomodorosPick(4);
+              setOpen(false);
+            }}
+            >
               <p>4 Pomodoros</p>
               <p>(2 hours)</p>
             </MenuItem>
             <hr size="1" />
-            <MenuItem>
+            <MenuItem onClick={() => {
+              setCustomPomodorosView((prevState) => !prevState);
+              setOpen((prevState) => !prevState);
+            }}
+            >
               <p>Setup your own</p>
             </MenuItem>
+            {(isPomodoroSet) && (
+            <>
+              <hr size="1" />
+              <MenuItem
+                removeItem
+                onClick={() => {
+                  onPomodorosPick(null);
+                  setOpen(false);
+                }}
+              >
+                <p>Delate Pomodoros</p>
+                <TrashIcon className="icon" />
+              </MenuItem>
+            </>
+            )}
           </>
         )}
-      </MenuContainer>
+        {customPomodorosView && (
+          <CustomViewContainer>
+            <ArrowUp onClick={() => setCustomPomodorosCounts((prevState) => prevState + 1)} />
+            <p>{`${customPomodorosCounts} Pomodoros`}</p>
+            <ArrowDrop onClick={() => setCustomPomodorosCounts((prevState) => (prevState > 1 ? prevState - 1 : prevState))} />
+            <ControlsContainer>
+              <Button
+                saveButtonType
+                onClick={() => {
+                  onPomodorosPick(customPomodorosCounts);
+                  setCustomPomodorosCounts(1);
+                  setCustomPomodorosView((prevState) => !prevState);
+                }}
+              >
+                Save
 
+              </Button>
+              <Button
+                onClick={() => {
+                  setCustomPomodorosView((prevState) => !prevState);
+                  setOpen((prevState) => !prevState);
+                }}
+              >
+                Cancel
+
+              </Button>
+            </ControlsContainer>
+          </CustomViewContainer>
+        )}
+      </MenuContainer>
     </DropdownMenuContainer>
   );
 }
+
+const CustomViewContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    svg{
+      width: 55px;
+    height: 55px;
+    }
+    padding-top: 10px;
+    user-select: none;
+    p{
+      font-size: 18px;
+      font-weight: 500;
+      margin: 5px auto;
+    }
+`;
+
+const ControlsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 10px;
+`;
+
+const Button = styled.button`
+      padding: 10px;
+      width: 106px;
+      cursor: pointer;
+      border: none;
+      font-weight: 700;
+      background-color: #EEEEEE;
+      color: #444444;
+      &:hover{
+        transition: all 0.2s ease;
+        background-color: #DDDDDD;
+        color: #000000;
+      }
+    ${(props) => (props.saveButtonType && (
+    `background-color: #128069;
+      color: #DDDDDD;
+      &:hover{
+        transition: all 0.2s ease;
+        background-color: #1BBC9B;
+        color: #FFFFFF;
+      }`
+  )
+  )}
+
+`;
 
 const DropdownMenuContainer = styled.div`
   display: flex;
@@ -100,7 +216,7 @@ const MenuContainer = styled.div`
     ${(props) => (props.position
     ? (`top: ${props.position.fromTop}px; 
         right: ${props.position.fromRight - 75}px;`)
-    : ('top: -175px;'))}
+    : (`top: ${props.heightIncrease}px;`))}
     width: 210px;
     transform: translateX(-35%);
     background-color: white;
@@ -124,6 +240,17 @@ const MenuItem = styled.li`
   p:nth-child(2){
     opacity: 45%;
   }
+  ${(props) => (props.removeItem ? `
+  color: #F00000;
+  .icon {
+    padding: 0px;
+    fill: #F00000;
+    width: 25px;
+    height: 25px;
+    &:hover{
+      fill: #F00000;
+  }
+  ` : null)}
   &:hover{
     background: #EFEFEF;
   }
