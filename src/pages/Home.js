@@ -2,10 +2,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import TaskManager from '../components/Tasks_List/TaskManager';
+import TaskEditorWithRouter from '../components/TaskEditorWithRouter';
 
 const date = new Date();
 const Home = () => (
-  <>
+  <TaskEditorWithRouter baseRoute="home">
     <Header>
       <p>
         {date.toDateString()}
@@ -15,7 +16,7 @@ const Home = () => (
       <h5>Your&apos;s taks for today:</h5>
     </Header>
     <TaskManager />
-  </>
+  </TaskEditorWithRouter>
 );
 
 const Header = styled.div`

@@ -4,7 +4,7 @@
 // eslint-disable-next-line
 import React from 'react';
 import {
-  BrowserRouter, Route, Switch,
+  BrowserRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
@@ -17,7 +17,10 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route path="/home" component={Home} />
         <Route path="/tasks" component={Tasks} />
         <Route path="/calendar" component={Calendar} />
         <Route path="/pomodoro" component={Pomodoro} />

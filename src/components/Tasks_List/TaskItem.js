@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as CheckCircle } from '../utilities/assets/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_circle_icon.svg';
 import { ReactComponent as PomodoroClockIcon } from '../utilities/assets/pomodoro_clock_icon.svg';
@@ -11,11 +12,12 @@ import { ReactComponent as UncheckStarIcon } from '../utilities/assets/uncheck_s
 import { ReactComponent as CheckStarIcon } from '../utilities/assets/check_star_icon.svg';
 
 function TaskItem({
-  task, onComplete, onFavorite, openEditor,
+  task, onComplete, onFavorite,
 }) {
+  const history = useHistory();
   return (
     <>
-      <TaskContainer onClick={(e) => (e.target.childElementCount >= 3 ? openEditor(e) : null)}>
+      <TaskContainer onClick={(e) => (e.target.childElementCount >= 3 ? history.push(`${window.location.pathname}/${task.id}`) : null)}>
         {task.isCompleted ? (
           <CheckCircle fill="#1BBC9B" onClick={onComplete} />
         ) : (

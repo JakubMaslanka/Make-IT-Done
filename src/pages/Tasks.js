@@ -1,11 +1,14 @@
 /* eslint-disable import/named */
 import React from 'react';
 import TaskManager from '../components/Tasks_List/TaskManager';
+import TaskEditorWithRouter from '../components/TaskEditorWithRouter';
 
 const Tasks = () => (
   <div>
-    Tasks list View!
-    <TaskManager />
+    <TaskEditorWithRouter baseRoute="tasks">
+      Tasks list View!
+      <TaskManager />
+    </TaskEditorWithRouter>
   </div>
 );
 
