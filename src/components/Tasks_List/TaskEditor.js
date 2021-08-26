@@ -21,9 +21,8 @@ import { ReactComponent as RepeatCountIcon } from '../utilities/assets/repeat_co
 import useClickOutsideHook from '../utilities/useClickOutsideHook';
 
 function TaskEditor({
-  id, tasks, onEdit, onClose, onDelete,
+  taskToEdit, onEdit, onClose, onDelete,
 }) {
-  const [taskToEdit] = tasks.filter((task) => task.id === id);
   const [newTitle, setNewTitle] = useState(taskToEdit.title);
   const [date, setDate] = useState(taskToEdit.deadline || null);
   const [calendarOpen, setCalendarOpen] = useState(false);
