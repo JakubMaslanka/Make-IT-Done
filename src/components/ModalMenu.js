@@ -32,10 +32,12 @@ const ModalMenuContainer = styled.div`
     box-shadow: 6px 6px 20px 0px black;
     border-radius: 5px;
     display: flex;
+    text-align: center;
     flex-direction: column;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 70%;
     `;
 
 const ModalBackground = styled.div`
@@ -52,6 +54,7 @@ const ModalMenuHeader = styled.div`
       align-items: flex-start;
       justify-content: space-between;
       align-content: space-between;
+      text-align: left;
       svg{
           width: 32px;
           height: 32px;

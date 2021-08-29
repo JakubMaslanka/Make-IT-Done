@@ -15,7 +15,7 @@ const Home = () => (
       <h1>username!</h1>
       <h5>Your&apos;s taks for today:</h5>
     </Header>
-    <TaskManager />
+    <TaskManager height={530} />
   </TaskEditorWithRouter>
 );
 

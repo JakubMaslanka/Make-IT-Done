@@ -40,8 +40,8 @@ const Editor = ({ baseRoute }) => {
               id={parseInt(id, 10)}
               taskToEdit={taskToEdit}
               onEdit={editTask}
+              onDelete={removeTask}
               onClose={() => history.push(`/${baseRoute}`)}
-              onDelete={() => removeTask(id)}
             />
           </>
         ) : history.push(`/${baseRoute}`)}

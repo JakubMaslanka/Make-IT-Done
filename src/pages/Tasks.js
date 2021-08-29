@@ -7,7 +7,7 @@ const Tasks = () => (
   <div>
     <TaskEditorWithRouter baseRoute="tasks">
       Tasks list View!
-      <TaskManager />
+      <TaskManager height={760} />
     </TaskEditorWithRouter>
   </div>
 );
