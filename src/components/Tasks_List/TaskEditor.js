@@ -32,10 +32,15 @@ function TaskEditor({
   const handleCompleted = () => onEdit(taskToEdit.id, { ...taskToEdit, isCompleted: !taskToEdit.isCompleted });
   const handleFavoriteMark = () => onEdit(taskToEdit.id, { ...taskToEdit, isFavorite: !taskToEdit.isFavorite });
   const handleDescriptionEdit = () => onEdit(taskToEdit.id, { ...taskToEdit, description: taskDescription });
-  const handleDelete = () => (window.confirm('Are you sure you want to delete this task?') ? onDelete() : null);
+  const handleDelete = () => {
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      onDelete(taskToEdit.id);
+      onClose();
+    }
+  };
   const handleDateEdit = (pickedDate) => {
     if (date !== pickedDate) {
-      onEdit(taskToEdit.id, { ...taskToEdit, deadline: date ? moment(date).format('M/D/YYYY') : null });
+      onEdit(taskToEdit.id, { ...taskToEdit, deadline: pickedDate ? moment(pickedDate).format('M/D/YYYY') : null });
       setCalendarOpen(false);
     }
   };

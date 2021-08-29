@@ -43,11 +43,11 @@ export default function CalendarManager() {
         </DayOfWeek>
 
         <DaysGrid>
-          {days.map((d) => (
+          {days.map((day) => (
             <Day
-              key={d.idx}
-              day={d}
-              onClick={() => (d.value !== 'skipped' ? setSelected(d.date) : null)}
+              key={day.idx}
+              day={day}
+              onClick={() => (day.value !== 'skipped' ? setSelected(day.date) : null)}
             />
           ))}
         </DaysGrid>
@@ -60,6 +60,7 @@ export default function CalendarManager() {
           >
             <TasksForSelectedDay
               tasksInSelectedDay={tasksForDate(selected)}
+              onClose={() => setSelected(null)}
               selectedDay={selected}
               onComplete={(taskIdx) => {
                 setTask(tasks.map((task) => (
@@ -80,20 +81,17 @@ export default function CalendarManager() {
   );
 }
 
-const Day = ({ day, onClick }) => {
-  const className = `day ${day.value === 'skipped' ? 'skipped' : ''} ${day.isCurrentDay ? 'currentDay' : ''}`;
-  return (
-    <div onClick={onClick} className={className}>
-      {day.value === 'skipped' ? '' : day.value}
-      <div className="eventsContainer">
-        {day.tasks && day.tasks.map((task) => <CalendarTask task={task} key={task.id} />)}
-      </div>
-    </div>
-  );
-};
+const Day = ({ day, onClick }) => (
+  <DayContainer isCurrentDay={day.isCurrentDay} skipped={day.value === 'skipped'} onClick={onClick}>
+    {day.value === 'skipped' ? '' : day.value}
+    <EventContainer>
+      {day.tasks && day.tasks.map((task) => <CalendarTask task={task} key={task.id} />)}
+    </EventContainer>
+  </DayContainer>
+);
 
 const CalendarTask = ({ task }) => (
-  <div className={`${task.isCompleted ? 'completed' : ''} event`}>{(task.title.length > 12) ? `${task.title.substr(0, 12)}...` : task.title}</div>
+  <EventTitle completed={task.isCompleted}>{(task.title.length > 12) ? `${task.title.substr(0, 12)}...` : task.title}</EventTitle>
 );
 
 const Hr = styled.hr`
@@ -110,6 +108,9 @@ const DayOfWeek = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     color: #1BBC9B;
+    @media (max-width: 600px) {
+      font-size: 8px;
+    }
 `;
 
 const DaysGrid = styled.div`
@@ -119,65 +120,66 @@ const DaysGrid = styled.div`
     justify-items: center;
     align-items: center;
     overflow: auto;
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(7, minmax(50px, 1fr));
+    }
 `;
 
 const CalendarContainer = styled.div`
     width: 95%;
     margin: auto;
-
-      .day{
-        width: 100%;
-        height: 100%;
-        padding: 10px;
-        text-align: right;
-        cursor: pointer;
-        box-sizing: border-box;
-        color: #98a0a6;
-        font-size: .9rem;
-        border: 1px solid rgba(166, 168, 179, 0.12);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-          &:hover{
-            background-color: rgba(166, 168, 179, 0.12);
-          color: #1BBC9B;;
-          }
-      }
-
-      .currentDay {
-        opacity: 80%;
-        background-color: #2D3E50;
-        color: #1BBC9B;
-          &:hover {
-            background-color: rgba(166, 168, 179, 0.12);
-            color: #1BBC9B;;
-          }
-      }
-
-      .event {
-        font-size: 11px;
-        padding: 3px 8px;
-        margin: 8px 0px;
-        background-color: rgba(27, 188, 155, .2);
-        color: white;
-        border-left: 5px solid #1BBC9B;
-        max-height: 55px;
-        overflow: hidden;
-      }
-
-      .eventsContainer{
-        overflow-y: scroll;
-        text-align: left;
-      }
-
-      .completed{
-        background-color: #1BBC9B;
-      }
-
-      .skipped {
-        cursor: default !important;
-        background: none !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
     `;
+
+const DayContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    text-align: right;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #98a0a6;
+    font-size: .9rem;
+    border: 1px solid rgba(166, 168, 179, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    ${(props) => (props.skipped && (
+    `cursor: default !important;
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;`
+  ))};
+    ${(props) => (props.isCurrentDay && (
+    `opacity: 80%;
+      background-color: #2D3E50;
+      color: #1BBC9B;
+        &:hover {
+          background-color: rgba(166, 168, 179, 0.12);
+          color: #1BBC9B;;
+        }`
+  ))};
+      &:hover{
+        background-color: rgba(166, 168, 179, 0.12);
+        color: #1BBC9B;;
+      }
+`;
+
+const EventContainer = styled.div`
+    overflow-y: scroll;
+    text-align: left;
+`;
+
+const EventTitle = styled.div`
+    font-size: 11px;
+    padding: 3px 8px;
+    margin: 8px 0px;
+    background-color: rgba(27, 188, 155, .2);
+    color: white;
+    border-left: 5px solid #1BBC9B;
+    max-height: 55px;
+    overflow: hidden;
+    ${(props) => (props.completed && 'background-color: #1BBC9B')};
+    @media (max-width: 600px) {
+      font-size: 0px;
+    }
+`;

@@ -2,14 +2,17 @@
 import React, { useRef } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as PublishIcon } from '../utilities/assets/submit_icon.svg';
 import { ReactComponent as CheckCircle } from '../utilities/assets/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../utilities/assets/uncheck_circle_icon.svg';
+import { ReactComponent as OpenEditorIcon } from '../utilities/assets/more_option_icon.svg';
 
 function TasksForSelectedDay({
-  tasksInSelectedDay, onCreate, onComplete, selectedDay,
+  tasksInSelectedDay, onCreate, onComplete, selectedDay, onClose,
 }) {
   const tasksTitle = useRef(null);
+  const history = useHistory();
   const handleTaskSubmit = (e) => {
     e.preventDefault();
     onCreate({
@@ -29,13 +32,21 @@ function TasksForSelectedDay({
           {task.isCompleted
             ? <CheckCircle onClick={() => onComplete(task.id)} fill="#1BBC9B" />
             : <UncheckCircle onClick={() => onComplete(task.id)} fill="#128069" />}
-          <Title isCompleted={task.isCompleted}>
-            <h3>{(task.title.length > 18) ? `${task.title.substr(0, 18)}...` : task.title}</h3>
-          </Title>
+          <TitleContainer>
+            <Title isCompleted={task.isCompleted}>
+              <h3>{(task.title.length > 18) ? `${task.title.substr(0, 18)}...` : task.title}</h3>
+            </Title>
+            <OpenEditorIcon
+              fill="#128069"
+              onClick={() => {
+                onClose();
+                history.push(`${window.location.pathname}/${task.id}`);
+              }}
+            />
+          </TitleContainer>
         </TasksContainer>
       ))) : (
         <NoTasksContainer>
-          <p>Hey! 🖐</p>
           <p>Looks like you don&lsquo;t have any task for today!🥳</p>
           <p>You can always add one</p>
           <p>👇👇👇</p>
@@ -117,6 +128,13 @@ const TasksContainer = styled.div`
         margin 0px 25px 0px 10px;
         cursor: pointer;
     }
+`;
+
+const TitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; 
 `;
 
 const Title = styled.div`
