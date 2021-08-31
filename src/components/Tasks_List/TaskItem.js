@@ -17,7 +17,10 @@ function TaskItem({
   const history = useHistory();
   return (
     <>
-      <TaskContainer onClick={(e) => (e.target.childElementCount >= 3 ? history.push(`${window.location.pathname}/${task.id}`) : null)}>
+      <TaskContainer
+        onClick={(e) => (e.target.textContent !== '' ? history.push(`${window.location.pathname}/${task.id}`) : null)}
+        isCompleted={task.isCompleted}
+      >
         {task.isCompleted ? (
           <CheckCircle fill="#1BBC9B" onClick={onComplete} />
         ) : (
@@ -30,26 +33,26 @@ function TaskItem({
           <h3>{task.title.length > 25 ? `${task.title.substring(0, 24)}...` : `${task.title}`}</h3>
           <TaskDetails>
             {task.description && (
-            <p><NoteCalendar /></p>
+              <p><NoteCalendar /></p>
             )}
             {task.deadline && (
-            <p>
-              <SmallCalendar />
-              {moment(task.deadline).format('ddd, D MMMM')}
-            </p>
+              <p>
+                <SmallCalendar />
+                {moment(task.deadline).format('ddd, D MMMM')}
+              </p>
             )}
             {task.pomodoro && (
-            <p>
-              <PomodoroClockIcon />
-              {`${task.pomodoro.done}/${task.pomodoro.est}`}
-            </p>
+              <p>
+                <PomodoroClockIcon />
+                {`${task.pomodoro.done}/${task.pomodoro.est}`}
+              </p>
             )}
           </TaskDetails>
         </Title>
         {task.isFavorite ? (
-          <FilledStarIcon fill="#1BBC9B" onClick={onFavorite} />
+          <CheckStarIcon fill="#1BBC9B" onClick={onFavorite} />
         ) : (
-          <OutlinedStarIcon fill="#128069" onClick={onFavorite} />
+          <UncheckStarIcon fill="#128069" onClick={onFavorite} />
         )}
       </TaskContainer>
     </>
@@ -58,39 +61,33 @@ function TaskItem({
 
 const TaskContainer = styled.div`
   background-color: #2D3E50;
-  opacity: 90%;
   border-radius: 20px;
   margin: 25px 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   box-shadow: 4px 4px 4px 0px #00000040;
+  ${(props) => (props.isCompleted && 'opacity: 70%')};
   svg{
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     margin 0px 25px 0px 15px;
     cursor: pointer;
   }
 `;
 
-const FilledStarIcon = styled(CheckStarIcon)`
-  position: absolute;
-  right: 0;
-`;
-
-const OutlinedStarIcon = styled(UncheckStarIcon)`
-  position: absolute;
-  right: 0;
-`;
-
 const Title = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   h3{
     margin: 7.5px 0px;
     font-size: 1.28rem;
     color: #FFFFFF;
-    ${(props) => (props.isCompleted ? 'text-decoration: line-through;' : '')};
+    ${(props) => (props.isCompleted && (`
+    text-decoration: line-through;
+    color: #CCCCCC;
+    `))}
   }
   ${(props) => (props.areDetailsSet ? (`
     h3{
@@ -103,7 +100,7 @@ const TaskDetails = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 16px;
       h3{
         margin: 10px 0px 0px 0px;
       }

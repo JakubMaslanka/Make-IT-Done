@@ -1,49 +1,46 @@
-<<<<<<< HEAD
-import React, { useContext } from 'react';
-import TasksCreator from './Tasks_Creator/TasksCreator';
-import TaskItem from './TaskItem';
-
-=======
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import TasksCreator from './Tasks_Creator/TasksCreator';
-import TaskItem from './TaskItem';
->>>>>>> feature
 import { TasksContext } from '../context/TasksContext';
+import SearchBar from './SearchBar';
+import TaskItem from './TaskItem';
+import CompletedTasksList from './CompletedTasksList';
+import TasksCreator from './TasksCreator';
 
-function TaskManager({ height }) {
+function TaskManager({ height, withSearchBar }) {
   const {
     tasks,
     addTask,
     editTask,
   } = useContext(TasksContext);
-<<<<<<< HEAD
-
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const uncompletedTasks = tasks.filter((t) => !t.isCompleted);
+  const completedTasks = tasks.filter((t) => t.isCompleted);
+  const toggleDropdown = () => setOpenDropdown((prevState) => !prevState);
   return (
     <>
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onComplete={() => editTask(task.id, { ...task, isCompleted: !task.isCompleted })}
-          onFavorite={() => editTask(task.id, { ...task, isFavorite: !task.isFavorite })}
-        />
-      ))}
-=======
-  return (
-    <>
+      {withSearchBar && <SearchBar />}
       <TaskListContainer heightIncrease={height}>
-        {tasks.map((task) => (
+        {uncompletedTasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
-            onComplete={() => editTask(task.id, { ...task, isCompleted: !task.isCompleted })}
+            onComplete={() => {
+              editTask(task.id, { ...task, isCompleted: !task.isCompleted });
+              setOpenDropdown(true);
+            }}
             onFavorite={() => editTask(task.id, { ...task, isFavorite: !task.isFavorite })}
           />
         ))}
+        {completedTasks.length !== 0 && (
+          <CompletedTasksList
+            toggleDropdown={toggleDropdown}
+            isDropdownOpen={openDropdown}
+            completedTasks={completedTasks}
+            editTask={editTask}
+          />
+        )}
       </TaskListContainer>
->>>>>>> feature
       <TasksCreator onCreate={(taskToCreat) => addTask(taskToCreat)} />
     </>
   );
