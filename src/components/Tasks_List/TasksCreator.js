@@ -1,23 +1,22 @@
 /* eslint-disable react/prop-types */
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import DropdownCalendarMenu from './DropdownCalendarMenu';
-import DropdownPomodoroMenu from './DropdownPomodoroMenu';
-import DropdownRepeatMenu from './DropdownRepeatMenu';
+import DropdownCalendarMenu from './Dropdown_Menus/DropdownCalendarMenu';
+import DropdownPomodoroMenu from './Dropdown_Menus/DropdownPomodoroMenu';
+import DropdownRepeatMenu from './Dropdown_Menus/DropdownRepeatMenu';
 
-import { ReactComponent as PublishIcon } from '../../utilities/assets/submit_icon.svg';
-import { ReactComponent as DataPickUpIcon } from '../../utilities/assets/data_pickup_icon.svg';
-import { ReactComponent as PomodoroClockIcon } from '../../utilities/assets/pomodoro_clock_icon.svg';
-import { ReactComponent as RepeatCountIcon } from '../../utilities/assets/repeat_count_icon.svg';
+import { ReactComponent as PublishIcon } from '../utilities/assets/submit_icon.svg';
+import { ReactComponent as DataPickUpIcon } from '../utilities/assets/data_pickup_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../utilities/assets/pomodoro_clock_icon.svg';
+import { ReactComponent as RepeatCountIcon } from '../utilities/assets/repeat_count_icon.svg';
 
-import useClickOutsideHook from '../../utilities/useClickOutsideHook';
+import useClickOutsideHook from '../utilities/useClickOutsideHook';
 
 function TasksCreator({ onCreate }) {
-  const tasksTitle = useRef(null);
-
+  const [title, setTitle] = useState('');
   const [date, setDate] = useState(null);
   const [pomodoroEst, setPomodoroEst] = useState(null);
   const [isCalendarOpen, onCalendarOpen] = useState(false);
@@ -26,7 +25,7 @@ function TasksCreator({ onCreate }) {
     e.preventDefault();
     onCreate({
       id: new Date().getMilliseconds(),
-      title: tasksTitle.current.value,
+      title,
       isCompleted: false,
       isFavorite: false,
       deadline: date ? moment(date).format('M/D/YYYY') : null,
@@ -36,7 +35,7 @@ function TasksCreator({ onCreate }) {
       } : null,
       timeStump: moment().format(),
     });
-    tasksTitle.current.value = '';
+    setTitle('');
     setDate(null);
     setPomodoroEst(null);
   };
@@ -71,7 +70,7 @@ function TasksCreator({ onCreate }) {
         <SubmitButton type="submit">
           <PublishIcon />
         </SubmitButton>
-        <TextInput required placeholder="Add new task" type="text" ref={tasksTitle} />
+        <TextInput required placeholder="Add new task" type="text" onChange={(e) => setTitle(e.target.value)} />
         <TaskOptions>
           <DropdownCalendarMenu
             onDatePick={handleDateSubmit}

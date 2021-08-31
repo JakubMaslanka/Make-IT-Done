@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/named */
 import React from 'react';
 import styled from 'styled-components';
@@ -15,11 +16,7 @@ const Home = () => (
       <h1>username!</h1>
       <h5>Your&apos;s taks for today:</h5>
     </Header>
-<<<<<<< HEAD
-    <TaskManager />
-=======
-    <TaskManager height={530} />
->>>>>>> feature
+    <TaskManager height={window.innerHeight - 425} />
   </TaskEditorWithRouter>
 );
 
