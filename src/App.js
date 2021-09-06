@@ -1,12 +1,8 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-cycle */
-// eslint-disable-next-line
 import React from 'react';
 import {
   BrowserRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
-import Navigation from './components/Navigation';
+import { Navigation } from './components';
 import Home from './pages/Home';
 import Tasks from './pages/Tasks';
 import Projects from './pages/Projects';

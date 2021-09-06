@@ -20,6 +20,7 @@
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "linebreak-style": "off",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "import/prefer-default-export": "off"
     }
 }

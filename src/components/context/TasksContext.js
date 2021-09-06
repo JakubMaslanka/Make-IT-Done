@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const TasksContext = createContext();
 
-const TasksContextProvider = (props) => {
+export default function TasksContextProvider({ children }) {
   const [tasks, setTask] = useState([
     {
       title: 'Test',
@@ -13,6 +12,8 @@ const TasksContextProvider = (props) => {
       isFavorite: false,
       timeStump: '2021-07-30T18:49:42+02:00',
       deadline: '7/21/2021',
+      projectId: '787ad937-d4b8-4180-90d5-d48266dee629',
+      projectTitle: 'To jest testowy projekt',
       pomodoro: {
         est: 2,
         done: 0,
@@ -32,10 +33,29 @@ const TasksContextProvider = (props) => {
       timeStump: '2021-08-05T18:49:42+02:00',
       id: 555,
       deadline: '8/11/2021',
+      projectId: '787ad937-d4b8-4180-90d5-d48266dee629',
+      projectTitle: 'To jest testowy projekt',
       pomodoro: {
         est: 3,
         done: 0,
       },
+    },
+  ]);
+
+  const [projects, setProjects] = useState([
+    {
+      description: 'Krótki opis',
+      id: 366,
+      projectColor: 'hsl(320, 75%, 42%)',
+      title: 'To jest testowy projekt',
+      uniqueProjectId: '787ad937-d4b8-4180-90d5-d48266dee629',
+    },
+    {
+      description: '',
+      id: 376,
+      projectColor: 'hsl(230, 75%, 42%)',
+      title: 'Bez opisu',
+      uniqueProjectId: 'b80dbb67-c01d-43b8-87a7-b8d930cebfe2',
     },
   ]);
 
@@ -58,11 +78,18 @@ const TasksContextProvider = (props) => {
       addTask,
       editTask,
       removeTask,
+      projects,
+      setProjects,
     }}
     >
-      {props.children}
+      {children}
     </TasksContext.Provider>
   );
-};
+}
 
-export default TasksContextProvider;
+TasksContextProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};

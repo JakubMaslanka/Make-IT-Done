@@ -1,6 +1,6 @@
 import React from 'react';
-import CalendarManager from '../components/Calendar/CalendarManager';
-import TaskEditorWithRouter from '../components/TaskEditorWithRouter';
+import { CalendarManager } from '../components';
+import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
 
 const Calendar = () => (
   <TaskEditorWithRouter baseRoute="calendar">

@@ -1,16 +1,17 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/named */
 import React from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
-import TaskManager from '../components/Tasks_List/TaskManager';
-import TaskEditorWithRouter from '../components/TaskEditorWithRouter';
+import { TaskManager } from '../components';
+import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
 
 const date = new Date();
 const Home = () => (
   <TaskEditorWithRouter baseRoute="home">
     <Header>
       <p>
-        {date.toDateString()}
+        {moment(date).format('dddd, D MMM')}
       </p>
       <h2>Welcome back,</h2>
       <h1>username!</h1>
@@ -27,7 +28,7 @@ const Header = styled.div`
   line-height: 70px;
   p {
     font-size: 20px;
-    font-weight: 200;
+    font-weight: 300;
     line-height: 26px;
     opacity: 88%;
     margin-bottom: 0px;

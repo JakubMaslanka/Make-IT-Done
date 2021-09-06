@@ -2,18 +2,16 @@
 /* eslint-disable import/named */
 import React from 'react';
 import styled from 'styled-components';
-import TaskManager from '../components/Tasks_List/TaskManager';
-import TaskEditorWithRouter from '../components/TaskEditorWithRouter';
+import { TaskManager } from '../components';
+import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
 
 const Tasks = () => (
-  <div>
-    <TaskEditorWithRouter baseRoute="tasks">
-      <Header>
-        <h4>All tasks:</h4>
-      </Header>
-      <TaskManager withSearchBar height={window.innerHeight - 260} />
-    </TaskEditorWithRouter>
-  </div>
+  <TaskEditorWithRouter baseRoute="tasks">
+    <Header>
+      <h4>All tasks:</h4>
+    </Header>
+    <TaskManager withSearchBar height={window.innerHeight - 260} />
+  </TaskEditorWithRouter>
 );
 
 const Header = styled.div`

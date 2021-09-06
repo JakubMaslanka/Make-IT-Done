@@ -1,14 +1,15 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/named */
 import React from 'react';
 import styled from 'styled-components';
+import { ProjectManager } from '../components';
+import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
 
 const Projects = () => (
-  <div>
+  <TaskEditorWithRouter baseRoute="projects">
     <Header>
       <h4>Projects:</h4>
     </Header>
-  </div>
+    <ProjectManager />
+  </TaskEditorWithRouter>
 );
 
 const Header = styled.div`

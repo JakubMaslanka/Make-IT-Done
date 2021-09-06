@@ -1,8 +1,7 @@
-/* eslint-disable no-plusplus */
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 
-export default function useCalendar(tasks, selectedMonth) {
+export function useCalendar(tasks, selectedMonth) {
   const [dateDisplay, setDateDisplay] = useState('');
   const [days, setDays] = useState([]);
 
@@ -31,7 +30,7 @@ export default function useCalendar(tasks, selectedMonth) {
 
     const daysArray = [];
 
-    for (let i = 1; i <= indexOfFirstCalendarDay + daysInMonth; i++) {
+    for (let i = 1; i <= indexOfFirstCalendarDay + daysInMonth; i += 1) {
       const dayAsString = moment(`${year}-${month + 1}-${i - indexOfFirstCalendarDay}`).format('M/D/YYYY');
 
       if (i > indexOfFirstCalendarDay) {
