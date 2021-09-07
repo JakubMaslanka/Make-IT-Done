@@ -1,0 +1,64 @@
+{
+    "tasks": [
+        {
+            "title":"Test",
+            "isCompleted":false,
+            "id":5,
+            "isFavorite":false,
+            "timeStump":"2021-07-30T18:49:42+02:00",
+            "deadline":"7/21/2021",
+            "projectId":"787ad937-d4b8-4180-90d5-d48266dee629",
+            "projectTitle":"To jest testowy projekt",
+            "pomodoro": {
+                "est":2,
+                "done":0
+            }
+        },
+        {
+            "title":"Test2",
+            "isCompleted":true,
+            "isFavorite":true,
+            "timeStump":"2021-08-01T18:49:42+02:00",
+            "id":55
+        },
+        {
+            "title":"Test3",
+            "isCompleted":false,
+            "isFavorite":true,
+            "timeStump":"2021-08-05T18:49:42+02:00",
+            "id":555,
+            "deadline":"8/11/2021",
+            "projectId":"787ad937-d4b8-4180-90d5-d48266dee629",
+            "projectTitle":"To jest testowy projekt",
+            "pomodoro": {
+                "est":3,
+                "done":0
+            }
+        }
+    ],
+    "projects": [
+        {
+            "description": "Krótki opis",
+            "id": 366,
+            "projectColor": "hsl(320, 75%, 42%)",
+            "title": "To jest testowy projekt",
+            "uniqueProjectId": "787ad937-d4b8-4180-90d5-d48266dee629"
+          },
+          {
+            "description": "",
+            "id": "376",
+            "projectColor": "hsl(230, 75%, 42%)",
+            "title": "Bez opisu",
+            "uniqueProjectId": "b80dbb67-c01d-43b8-87a7-b8d930cebfe2"
+          }
+    ],
+    "users": [
+      {
+        "email": "test@test.pl",
+        "firstName": "TEST",
+        "password": "$2a$10$yaCxEgKA8n5g7sPn2ejcdOm2HU0450UB8CpXm5Wc4RBeKvEsNxlo6",
+        "id": 1
+      }
+    ]
+  }
+  
