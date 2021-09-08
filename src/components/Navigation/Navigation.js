@@ -28,7 +28,7 @@ export function Navigation() {
         <ProjectsIcon className={activeLinkIdx === 1 ? 'styledSvg active' : 'styledSvg'} />
       </NavLink>
       <NavLink
-        to="/"
+        to="/home"
         exact
         isActive={(match) => (match ? setActiveLinkIdx(2) : null)}
       >

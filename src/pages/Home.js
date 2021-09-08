@@ -1,25 +1,43 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/named */
-import React from 'react';
+import React, { useContext } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import { TaskManager } from '../components';
+import { TaskManager, Navigation } from '../components';
+
 import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
 
+import { AuthContext } from '../components/context/AuthContext';
+
 const date = new Date();
-const Home = () => (
-  <TaskEditorWithRouter baseRoute="home">
-    <Header>
-      <p>
-        {moment(date).format('dddd, D MMM')}
-      </p>
-      <h2>Welcome back,</h2>
-      <h1>username!</h1>
-      <h5>Your&apos;s taks for today:</h5>
-    </Header>
-    <TaskManager height={window.innerHeight - 425} />
-  </TaskEditorWithRouter>
-);
+const Home = () => {
+  const { user, AuthenticationApi } = useContext(AuthContext);
+  return (
+    <>
+      <TaskEditorWithRouter baseRoute="home">
+        <Header>
+          <p>
+            {moment(date).format('dddd, D MMM')}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              AuthenticationApi.logout();
+            }}
+          >
+            Sign out
+          </button>
+          <h2>Welcome back,</h2>
+          <h1>{`${user.user.nickname}!`}</h1>
+          <h5>Your&apos;s taks for today:</h5>
+        </Header>
+        <TaskManager height={window.innerHeight - 425} />
+      </TaskEditorWithRouter>
+      <Navigation />
+    </>
+  );
+};
 
 const Header = styled.div`
   margin: 0px 20px;

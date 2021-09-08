@@ -1,15 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProjectManager } from '../components';
+import { ProjectManager, Navigation } from '../components';
+
 import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
 
 const Projects = () => (
-  <TaskEditorWithRouter baseRoute="projects">
-    <Header>
-      <h4>Projects:</h4>
-    </Header>
-    <ProjectManager />
-  </TaskEditorWithRouter>
+  <>
+    <TaskEditorWithRouter baseRoute="projects">
+      <Header>
+        <h4>Projects:</h4>
+      </Header>
+      <ProjectManager />
+    </TaskEditorWithRouter>
+    <Navigation />
+  </>
 );
 
 const Header = styled.div`
