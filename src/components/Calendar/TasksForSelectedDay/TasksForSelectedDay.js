@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
-import { ReactComponent as PublishIcon } from '../../utilities/assets/submit_icon.svg';
-import { ReactComponent as CheckCircle } from '../../utilities/assets/check_circle_icon.svg';
-import { ReactComponent as UncheckCircle } from '../../utilities/assets/uncheck_circle_icon.svg';
-import { ReactComponent as OpenEditorIcon } from '../../utilities/assets/more_option_icon.svg';
+import { ReactComponent as PublishIcon } from '../../../icons/submit_icon.svg';
+import { ReactComponent as CheckCircle } from '../../../icons/check_circle_icon.svg';
+import { ReactComponent as UncheckCircle } from '../../../icons/uncheck_circle_icon.svg';
+import { ReactComponent as OpenEditorIcon } from '../../../icons/more_option_icon.svg';
 
 import {
+  Title,
+  TextInput,
+  SubmitButton,
+  FormContainer,
   TasksContainer,
   TitleContainer,
-  Title,
   NoTasksContainer,
-  FormContainer,
-  SubmitButton,
-  TextInput,
 } from './TasksForSelectedDay.styles';
 
 export function TasksForSelectedDay({
@@ -26,10 +26,10 @@ export function TasksForSelectedDay({
   const handleTaskSubmit = (e) => {
     e.preventDefault();
     onCreate({
-      id: new Date().getMilliseconds(),
       title: tasksTitle.current.value,
       isCompleted: false,
-      deadline: selectedDay ? Date.parse(selectedDay) : null,
+      isFavorite: false,
+      deadline: selectedDay || null,
       timeStump: moment().format(),
     });
     tasksTitle.current.value = '';
@@ -40,8 +40,8 @@ export function TasksForSelectedDay({
       {tasksInSelectedDay ? (tasksInSelectedDay.map((task) => (
         <TasksContainer key={task.id}>
           {task.isCompleted
-            ? <CheckCircle onClick={() => onComplete(task.id)} fill="#1BBC9B" />
-            : <UncheckCircle onClick={() => onComplete(task.id)} fill="#128069" />}
+            ? <CheckCircle onClick={() => onComplete(task)} fill="#1BBC9B" />
+            : <UncheckCircle onClick={() => onComplete(task)} fill="#128069" />}
           <TitleContainer>
             <Title isCompleted={task.isCompleted}>
               <h3>{(task.title.length > 18) ? `${task.title.substr(0, 18)}...` : task.title}</h3>

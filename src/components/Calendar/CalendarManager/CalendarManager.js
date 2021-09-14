@@ -1,24 +1,22 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useCalendar } from '../../utilities/useCalendar';
-import { ModalMenu } from '../../utilities/ModalMenu';
-import { TasksContext } from '../../context/TasksContext';
-
+import { useCalendar } from '../../../hooks/useCalendar';
+import { ModalMenu } from '../../../utils/ModalMenu';
 import { MonthIndicator } from '../MonthIndicator/MonthIndicator';
 import { TasksForSelectedDay } from '../TasksForSelectedDay';
-
+import { useTasks } from '../../../hooks';
 import {
   Hr,
-  CalendarContainer,
-  DayOfWeek,
   DaysGrid,
+  DayOfWeek,
+  EventTitle,
   DayContainer,
   EventContainer,
-  EventTitle,
+  CalendarContainer,
 } from './CalendarManager.styles';
 
 export function CalendarManager() {
-  const { tasks, setTask } = useContext(TasksContext);
+  const { tasks, handleTaskCreate, handleTaskEdit } = useTasks();
   const [month, setMonth] = useState(0);
   const [selected, setSelected] = useState(null);
   const { days, dateDisplay } = useCalendar(tasks, month);
@@ -67,23 +65,10 @@ export function CalendarManager() {
               tasksInSelectedDay={tasksForDate(selected)}
               onClose={() => setSelected(null)}
               selectedDay={selected}
-              onComplete={(taskIdx) => {
-                setTask(tasks.map((task) => (
-                  task.id === taskIdx
-                    ? { ...task, isCompleted: !task.isCompleted }
-                    : task)));
+              onComplete={(task) => {
+                handleTaskEdit(task.id, { ...task, isCompleted: !task.isCompleted });
               }}
-              onCreate={({ title }) => {
-                setTask([...tasks,
-                  {
-                    title,
-                    id: new Date().getMilliseconds(),
-                    deadline: selected,
-                    isCompleted: false,
-                    isFavorite: false,
-                  }]);
-                setSelected(null);
-              }}
+              onCreate={(taskToCreate) => handleTaskCreate(taskToCreate)}
             />
           </ModalMenu>
         )

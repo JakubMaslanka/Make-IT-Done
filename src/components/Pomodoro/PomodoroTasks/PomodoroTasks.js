@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as CheckCircle } from '../../utilities/assets/check_circle_icon.svg';
-import { ReactComponent as UncheckCircle } from '../../utilities/assets/uncheck_circle_icon.svg';
-import { ReactComponent as MoreOptionIcon } from '../../utilities/assets/more_option_icon.svg';
+import { ReactComponent as CheckCircle } from '../../../icons/check_circle_icon.svg';
+import { ReactComponent as UncheckCircle } from '../../../icons/uncheck_circle_icon.svg';
+import { ReactComponent as MoreOptionIcon } from '../../../icons/more_option_icon.svg';
 
 import {
-  Container,
-  TaskItem,
-  TaskContainer,
   H3,
+  TaskItem,
+  Container,
+  TaskContainer,
 } from './PomodoroTasks.styles';
 
 export function PomodoroTasks({
@@ -49,6 +49,10 @@ export function PomodoroTasks({
 PomodoroTasks.propTypes = {
   setTitle: PropTypes.func.isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activeTaskId: PropTypes.number.isRequired,
+  activeTaskId: PropTypes.number,
   setActiveTaskId: PropTypes.func.isRequired,
+};
+
+PomodoroTasks.defaultProps = {
+  activeTaskId: null,
 };

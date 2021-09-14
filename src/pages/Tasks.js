@@ -1,33 +1,13 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/named */
 import React from 'react';
-import styled from 'styled-components';
-import { TaskManager, Navigation } from '../components';
+import { Header } from './pages.styles';
+import { TaskManager } from '../components';
+import { Layout } from './Layout';
 
-import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
-
-const Tasks = () => (
-  <>
-    <TaskEditorWithRouter baseRoute="tasks">
-      <Header>
-        <h4>All tasks:</h4>
-      </Header>
-      <TaskManager withSearchBar height={window.innerHeight - 260} />
-    </TaskEditorWithRouter>
-    <Navigation />
-  </>
+export const Tasks = () => (
+  <Layout baseRoute="tasks">
+    <Header>
+      <h4>All tasks:</h4>
+    </Header>
+    <TaskManager withSearchBar height={window.innerHeight - 260} />
+  </Layout>
 );
-
-const Header = styled.div`
-  margin: 10px 20px;
-  color: #FFFFFF;
-  font-family: Roboto;
-  line-height: 70px;
-  h4{
-    font-size: 22px;
-    font-weight: 350;
-    margin: 0px;
-  }
-`;
-
-export default Tasks;

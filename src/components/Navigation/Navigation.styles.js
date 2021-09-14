@@ -9,14 +9,15 @@ export const NavContainer = styled.div`
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 7%;
-    .styledSvg{
-    fill: #128069;
-    width: 28px;
-    height: 28px;
-    &.active{
+    height: 7%;`;
+
+export const NavIcon = styled.div`
+    svg{
+      ${({ active }) => (active ? `
         fill: #1BBC9B;
         width: 40px;
-        height: 40px;
-    }
+        height: 40px;` : `
+        fill: #128069;
+      width: 28px;
+      height: 28px;`)}
     }`;

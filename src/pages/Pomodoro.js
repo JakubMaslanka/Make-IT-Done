@@ -1,15 +1,9 @@
 import React from 'react';
-import { PomodoroManager, Navigation } from '../components';
+import { PomodoroManager } from '../components';
+import { Layout } from './Layout';
 
-import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
-
-const Pomodoro = () => (
-  <>
-    <TaskEditorWithRouter baseRoute="pomodoro">
-      <PomodoroManager />
-    </TaskEditorWithRouter>
-    <Navigation />
-  </>
+export const Pomodoro = () => (
+  <Layout baseRoute="pomodoro">
+    <PomodoroManager />
+  </Layout>
 );
-
-export default Pomodoro;

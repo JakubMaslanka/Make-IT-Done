@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ModalMenuContainer = styled.div`
     position: absolute;
-    z-index: 20;
+    z-index: 12;
     padding: 20px;
     background-color: #2D3E50;
     color: white;

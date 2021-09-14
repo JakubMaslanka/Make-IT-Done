@@ -64,9 +64,22 @@ export const Header = styled.div`
   }`;
 
 export const Container = styled.div`
+  position: relative;
   width: 100%;
   color: #EEEEEE;
   z-index: 1;
   ${({ color }) => `background-color: ${color};`}
   box-shadow: 4px 4px 4px 0px #00000040;
   border-radius: 20px;`;
+
+export const TasksCountContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(0px, -10px);
+  ${({ color }) => `background-color: ${color.split(',')[0]}, 75%, 29%);`}
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  line-height: 7px;`;

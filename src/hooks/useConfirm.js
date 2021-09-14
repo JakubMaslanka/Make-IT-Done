@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { Dialog } from './Dialog';
+import { Dialog } from '../utils/Dialog';
 
 export function useConfirm(callback, title, message) {
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -30,7 +30,11 @@ export function useConfirm(callback, title, message) {
     children: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.node),
       PropTypes.node,
-    ]).isRequired,
+    ]),
+  };
+
+  ConfirmContainer.defaultProps = {
+    children: React.createElement('div'),
   };
 
   return {

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
-import { ReactComponent as CheckCircle } from '../../utilities/assets/check_circle_icon.svg';
-import { ReactComponent as UncheckCircle } from '../../utilities/assets/uncheck_circle_icon.svg';
-import { ReactComponent as NoteCalendar } from '../../utilities/assets/note_logo.svg';
-import { ReactComponent as HomeIcon } from '../../utilities/assets/home_icon.svg';
-import { ReactComponent as SmallCalendar } from '../../utilities/assets/calendar_icon.svg';
-import { ReactComponent as PomodoroClockIcon } from '../../utilities/assets/pomodoro_clock_icon.svg';
-import { ReactComponent as UncheckStarIcon } from '../../utilities/assets/uncheck_star_icon.svg';
-import { ReactComponent as CheckStarIcon } from '../../utilities/assets/check_star_icon.svg';
+import { ReactComponent as CheckCircle } from '../../../icons/check_circle_icon.svg';
+import { ReactComponent as UncheckCircle } from '../../../icons/uncheck_circle_icon.svg';
+import { ReactComponent as NoteCalendar } from '../../../icons/note_logo.svg';
+import { ReactComponent as HomeIcon } from '../../../icons/home_icon.svg';
+import { ReactComponent as SmallCalendar } from '../../../icons/calendar_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../../../icons/pomodoro_clock_icon.svg';
+import { ReactComponent as UncheckStarIcon } from '../../../icons/uncheck_star_icon.svg';
+import { ReactComponent as CheckStarIcon } from '../../../icons/check_star_icon.svg';
 
 import {
   TaskContainer,

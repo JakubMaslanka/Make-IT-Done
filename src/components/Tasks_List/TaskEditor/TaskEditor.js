@@ -2,21 +2,23 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { DropdownCalendarMenu, DropdownPomodoroMenu, DropdownProjectsMenu } from '../Dropdown_Menus';
+import { useConfirm, useClickOutsideHook } from '../../../hooks';
 
-import { useConfirm } from '../../utilities/useConfirm';
-import { useClickOutsideHook } from '../../utilities/useClickOutsideHook';
+import { ReactComponent as CheckCircle } from '../../../icons/check_circle_icon.svg';
+import { ReactComponent as UncheckCircle } from '../../../icons/uncheck_circle_icon.svg';
+import { ReactComponent as UncheckStarIcon } from '../../../icons/uncheck_star_icon.svg';
+import { ReactComponent as CheckStarIcon } from '../../../icons/check_star_icon.svg';
+import { ReactComponent as TrashIcon } from '../../../icons/trash_icon.svg';
+import { ReactComponent as ArrowRight } from '../../../icons/arrow_right_icon.svg';
+import { ReactComponent as DataPickUpIcon } from '../../../icons/data_pickup_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../../../icons/pomodoro_clock_icon.svg';
+import { ReactComponent as ProjectsIcon } from '../../../icons/projects_icon.svg';
 
-import { ReactComponent as CheckCircle } from '../../utilities/assets/check_circle_icon.svg';
-import { ReactComponent as UncheckCircle } from '../../utilities/assets/uncheck_circle_icon.svg';
-import { ReactComponent as UncheckStarIcon } from '../../utilities/assets/uncheck_star_icon.svg';
-import { ReactComponent as CheckStarIcon } from '../../utilities/assets/check_star_icon.svg';
-import { ReactComponent as TrashIcon } from '../../utilities/assets/trash_icon.svg';
-import { ReactComponent as ArrowRight } from '../../utilities/assets/arrow_right_icon.svg';
-import { ReactComponent as DataPickUpIcon } from '../../utilities/assets/data_pickup_icon.svg';
-import { ReactComponent as PomodoroClockIcon } from '../../utilities/assets/pomodoro_clock_icon.svg';
-import { ReactComponent as ProjectsIcon } from '../../utilities/assets/projects_icon.svg';
-
+import {
+  DropdownCalendarMenu,
+  DropdownPomodoroMenu,
+  DropdownProjectsMenu,
+} from '../Dropdown_Menus';
 import {
   EditorContainer,
   HeaderContainer,

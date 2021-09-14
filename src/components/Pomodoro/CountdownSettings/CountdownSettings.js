@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as ArrowUp } from '../../utilities/assets/arrow_up_icon.svg';
-import { ReactComponent as ArrowDrop } from '../../utilities/assets/arrow_down_icon.svg';
+import { ReactComponent as ArrowUp } from '../../../icons/arrow_up_icon.svg';
+import { ReactComponent as ArrowDrop } from '../../../icons/arrow_down_icon.svg';
 
 import {
   SettingsContainer,

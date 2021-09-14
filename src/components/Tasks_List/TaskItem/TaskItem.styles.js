@@ -10,6 +10,7 @@ export const TaskContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     box-shadow: 4px 4px 4px 0px #00000040;
+    font-family: Segoe UI;
     ${({ isCompleted }) => (isCompleted && 'opacity: 70%')};
     svg{
     width: 36px;

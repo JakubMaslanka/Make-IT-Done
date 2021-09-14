@@ -1,4 +1,4 @@
-export default async function makeRequest(url, method, body, accessToken) {
+export async function makeRequest(url, method, body, accessToken) {
   const jsonBody = body ? JSON.stringify(body) : undefined;
   const headers = {
     'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ export default async function makeRequest(url, method, body, accessToken) {
     body: jsonBody,
   });
   if (!response.ok) {
-    throw new Error('Something went wrong!');
+    throw new Error('Something went wrong with the response from the Fetch API');
   }
   return response;
 }

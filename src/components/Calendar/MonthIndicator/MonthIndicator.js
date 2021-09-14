@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as ArrowLeft } from '../../utilities/assets/arrow_left_icon.svg';
-import { ReactComponent as ArrowRight } from '../../utilities/assets/arrow_right_icon.svg';
+import { ReactComponent as ArrowLeft } from '../../../icons/arrow_left_icon.svg';
+import { ReactComponent as ArrowRight } from '../../../icons/arrow_right_icon.svg';
 
 import { MonthIndicatorHeader } from './MonthIndicator.styles';
 

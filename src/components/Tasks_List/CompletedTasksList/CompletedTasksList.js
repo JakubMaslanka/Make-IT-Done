@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TaskItem } from '../TaskItem';
-import { ReactComponent as ArrowRightIcon } from '../../utilities/assets/arrow_right_icon.svg';
-import { ReactComponent as ArrowDownIcon } from '../../utilities/assets/arrow_down_icon.svg';
+import { ReactComponent as ArrowRightIcon } from '../../../icons/arrow_right_icon.svg';
+import { ReactComponent as ArrowDownIcon } from '../../../icons/arrow_down_icon.svg';
 
 import { DropdownButton } from './CompletedTasksList.styles';
 

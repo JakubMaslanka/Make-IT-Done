@@ -6,10 +6,10 @@ import { DropdownCalendarMenu } from '../Dropdown_Menus/CalendarMenu';
 import { DropdownPomodoroMenu } from '../Dropdown_Menus/PomodoroMenu';
 import { DropdownProjectsMenu } from '../Dropdown_Menus/ProjectsMenu';
 
-import { ReactComponent as PublishIcon } from '../../utilities/assets/submit_icon.svg';
-import { ReactComponent as DataPickUpIcon } from '../../utilities/assets/data_pickup_icon.svg';
-import { ReactComponent as PomodoroClockIcon } from '../../utilities/assets/pomodoro_clock_icon.svg';
-import { ReactComponent as ProjectsIcon } from '../../utilities/assets/projects_icon.svg';
+import { ReactComponent as PublishIcon } from '../../../icons/submit_icon.svg';
+import { ReactComponent as DataPickUpIcon } from '../../../icons/data_pickup_icon.svg';
+import { ReactComponent as PomodoroClockIcon } from '../../../icons/pomodoro_clock_icon.svg';
+import { ReactComponent as ProjectsIcon } from '../../../icons/projects_icon.svg';
 
 import {
   CreatorContainer,
@@ -20,7 +20,7 @@ import {
   TextInput,
 } from './TasksCreator.styles';
 
-import { useClickOutsideHook } from '../../utilities/useClickOutsideHook';
+import { useClickOutsideHook } from '../../../hooks';
 
 export function TasksCreator({ onCreate }) {
   const [title, setTitle] = useState('');
@@ -35,7 +35,6 @@ export function TasksCreator({ onCreate }) {
   const handleTaskCreate = (e) => {
     e.preventDefault();
     onCreate({
-      id: new Date().getMilliseconds(),
       title,
       isCompleted: false,
       isFavorite: false,

@@ -1,51 +1,60 @@
-/* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { ReactComponent as TaskIcon } from '../utilities/assets/tasks_icon.svg';
-import { ReactComponent as ProjectsIcon } from '../utilities/assets/projects_icon.svg';
-import { ReactComponent as HomeIcon } from '../utilities/assets/home_icon.svg';
-import { ReactComponent as CalendarIcon } from '../utilities/assets/calendar_icon.svg';
-import { ReactComponent as PomodoroIcon } from '../utilities/assets/pomodoro_icon.svg';
+import { ReactComponent as TaskIcon } from '../../icons/tasks_icon.svg';
+import { ReactComponent as ProjectsIcon } from '../../icons/projects_icon.svg';
+import { ReactComponent as HomeIcon } from '../../icons/home_icon.svg';
+import { ReactComponent as CalendarIcon } from '../../icons/calendar_icon.svg';
+import { ReactComponent as PomodoroIcon } from '../../icons/pomodoro_icon.svg';
+import { NavContainer, NavIcon } from './Navigation.styles';
 
-import { NavContainer } from './Navigation.styles';
+export const Navigation = ({ setActive, active }) => (
+  <NavContainer>
+    <NavLink
+      to="/tasks"
+      isActive={(match) => (match && setActive(0))}
+    >
+      <NavIcon active={active === 0}>
+        <TaskIcon />
+      </NavIcon>
+    </NavLink>
+    <NavLink
+      to="/projects"
+      isActive={(match) => (match && setActive(1))}
+    >
+      <NavIcon active={active === 1}>
+        <ProjectsIcon />
+      </NavIcon>
+    </NavLink>
+    <NavLink
+      to="/home"
+      exact
+      isActive={(match) => (match && setActive(2))}
+    >
+      <NavIcon active={active === 2}>
+        <HomeIcon />
+      </NavIcon>
+    </NavLink>
+    <NavLink
+      to="/calendar"
+      isActive={(match) => (match && setActive(3))}
+    >
+      <NavIcon active={active === 3}>
+        <CalendarIcon />
+      </NavIcon>
+    </NavLink>
+    <NavLink
+      to="/pomodoro"
+      isActive={(match) => (match && setActive(4))}
+    >
+      <NavIcon active={active === 4}>
+        <PomodoroIcon />
+      </NavIcon>
+    </NavLink>
+  </NavContainer>
+);
 
-export function Navigation() {
-  const [activeLinkIdx, setActiveLinkIdx] = useState(2);
-
-  /* Find a better way to mark active link */
-  return (
-    <NavContainer>
-      <NavLink
-        to="/tasks"
-        isActive={(match) => (match ? setActiveLinkIdx(0) : null)}
-      >
-        <TaskIcon className={activeLinkIdx === 0 ? 'styledSvg active' : 'styledSvg'} />
-      </NavLink>
-      <NavLink
-        to="/projects"
-        isActive={(match) => (match ? setActiveLinkIdx(1) : null)}
-      >
-        <ProjectsIcon className={activeLinkIdx === 1 ? 'styledSvg active' : 'styledSvg'} />
-      </NavLink>
-      <NavLink
-        to="/home"
-        exact
-        isActive={(match) => (match ? setActiveLinkIdx(2) : null)}
-      >
-        <HomeIcon className={activeLinkIdx === 2 ? 'styledSvg active' : 'styledSvg'} />
-      </NavLink>
-      <NavLink
-        to="/calendar"
-        isActive={(match) => (match ? setActiveLinkIdx(3) : null)}
-      >
-        <CalendarIcon className={activeLinkIdx === 3 ? 'styledSvg active' : 'styledSvg'} />
-      </NavLink>
-      <NavLink
-        to="/pomodoro"
-        isActive={(match) => (match ? setActiveLinkIdx(4) : null)}
-      >
-        <PomodoroIcon className={activeLinkIdx === 4 ? 'styledSvg active' : 'styledSvg'} />
-      </NavLink>
-    </NavContainer>
-  );
-}
+Navigation.propTypes = {
+  setActive: PropTypes.func.isRequired,
+  active: PropTypes.number.isRequired,
+};

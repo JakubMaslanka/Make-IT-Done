@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TaskListContainer } from './TaskManager.styles';
-
-import { TasksContext } from '../../context/TasksContext';
-
+import { SkeletonLoader } from '../../../utils/Loaders';
 import { SearchBar } from '../SearchBar';
 import { TaskItem } from '../TaskItem';
 import { CompletedTasksList } from '../CompletedTasksList';
 import { TasksCreator } from '../TasksCreator';
+import { useTasks } from '../../../hooks';
 
 export function TaskManager({ height, withSearchBar }) {
   const {
     tasks,
-    addTask,
-    editTask,
-  } = useContext(TasksContext);
+    isContentLoading,
+    handleTaskCreate,
+    handleTaskEdit,
+  } = useTasks();
 
   const filteredTasks = {
     completed: tasks.filter((t) => t.isCompleted),
@@ -23,19 +23,21 @@ export function TaskManager({ height, withSearchBar }) {
 
   const [openDropdown, setOpenDropdown] = useState(false);
   const toggleDropdown = () => setOpenDropdown((prevState) => !prevState);
+
   return (
     <>
       {withSearchBar && <SearchBar />}
       <TaskListContainer heightIncrease={height}>
+        {isContentLoading && <SkeletonLoader />}
         {filteredTasks.uncompleted.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
             onComplete={() => {
-              editTask(task.id, { ...task, isCompleted: !task.isCompleted });
+              handleTaskEdit(task.id, { ...task, isCompleted: !task.isCompleted });
               setOpenDropdown(true);
             }}
-            onFavorite={() => editTask(task.id, { ...task, isFavorite: !task.isFavorite })}
+            onFavorite={() => handleTaskEdit(task.id, { ...task, isFavorite: !task.isFavorite })}
           />
         ))}
         {filteredTasks.completed.length !== 0 && (
@@ -43,11 +45,11 @@ export function TaskManager({ height, withSearchBar }) {
             toggleDropdown={toggleDropdown}
             isDropdownOpen={openDropdown}
             tasks={filteredTasks.completed}
-            editTask={editTask}
+            editTask={handleTaskEdit}
           />
         )}
       </TaskListContainer>
-      <TasksCreator onCreate={(taskToCreat) => addTask(taskToCreat)} />
+      <TasksCreator onCreate={(taskToCreate) => handleTaskCreate(taskToCreate)} />
     </>
   );
 }

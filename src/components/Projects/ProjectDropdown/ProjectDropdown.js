@@ -1,87 +1,80 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { TaskItem } from '../../Tasks_List/TaskItem';
+import { ReactComponent as OptionsIcon } from '../../../icons/more_option_icon.svg';
+import { ProjectCreator } from '../ProjectCreator';
+import { ModalMenu } from '../../../utils/ModalMenu';
 
-import { ReactComponent as ArrowDownIcon } from '../../utilities/assets/arrow_down_icon.svg';
-import { ReactComponent as CloseIcon } from '../../utilities/assets/close_icon.svg';
-import { ReactComponent as TrashIcon } from '../../utilities/assets/trash_icon.svg';
+import { useConfirm, useTasks } from '../../../hooks';
 
 import {
-  Container,
-  Header,
-  TitleEditor,
   Title,
+  Header,
+  Container,
   Description,
-  TasksListBackground,
   ListContainer,
+  TasksCountContainer,
+  TasksListBackground,
 } from './ProjectDropdown.styles';
 
-import { useClickOutsideHook } from '../../utilities/useClickOutsideHook';
-import { useConfirm } from '../../utilities/useConfirm';
-
-export function ProjectDropdown({
-  project, tasks, editTask, projectEdit,
-}) {
+export function ProjectDropdown({ project, tasks, editTask }) {
+  const { handleTaskEdit, handleProjectRemove } = useTasks();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [projectEditing, setProjectEditing] = useState(false);
-  const [newTitle, setNewTitle] = useState(project.title);
+  const [isEditorOpen, setEditorOpen] = useState(false);
 
   const tasksFromProject = tasks.filter((task) => task.projectId === project.uniqueProjectId);
 
-  const handleTitleEdit = () => {
-    projectEdit((prevProjects) => (prevProjects.map(
-      (p) => (p.uniqueProjectId === project.uniqueProjectId
-        ? { ...project, title: newTitle }
-        : p),
-    )));
-  };
-
-  const handleProjectRemove = () => {
-    projectEdit((prevProjects) => (prevProjects.filter(
-      (p) => project.uniqueProjectId !== p.uniqueProjectId,
-    )));
-    setProjectEditing(false);
-  };
-
-  const { confirmTrigger, ConfirmContainer, isDialogOpen } = useConfirm(handleProjectRemove, 'Project deleting', `The project "${project.title}" will be permanently deleted. Are you sure?`);
-
-  const domNode = useClickOutsideHook(() => {
-    if (!isDialogOpen) {
-      handleTitleEdit();
-      setProjectEditing(false);
+  const editorToggle = () => setEditorOpen((prevState) => !prevState);
+  const openDropdown = (e) => {
+    if (e.target.nodeName === 'DIV' && tasksFromProject.length >= 1) {
+      setDropdownOpen((prevState) => !prevState);
     }
-  });
+  };
+
+  const confirmAction = () => {
+    if (tasksFromProject.length > 0) {
+      handleProjectRemove(project.id);
+      tasksFromProject.forEach(
+        (task) => handleTaskEdit(
+          task.id, {
+            ...task,
+            projectId: null,
+            projectTitle: null,
+          },
+        ),
+      );
+    } else {
+      handleProjectRemove(project.id);
+    }
+  };
+
+  const { confirmTrigger, ConfirmContainer } = useConfirm(confirmAction, 'Project deleting', `The project "${project.title}" will be permanently deleted.${tasksFromProject.length > 0 && `You've ${tasksFromProject.length} tasks assign to it! `}Are you sure?`);
 
   return (
     <>
-      <Container color={project.projectColor}>
+      {isEditorOpen && (
+        <ModalMenu
+          title="Edit your project!"
+          onClose={editorToggle}
+        >
+          <ProjectCreator
+            closeMenu={editorToggle}
+            projectToEdit={project}
+            tasksToEdit={tasksFromProject}
+            confirmTrigger={confirmTrigger}
+          />
+        </ModalMenu>
+      )}
+      <Container color={project.projectColor} onClick={openDropdown}>
+        <TasksCountContainer color={project.projectColor}>
+          {tasksFromProject.length}
+        </TasksCountContainer>
+        <ConfirmContainer />
         <Header>
-          {projectEditing ? (
-            <TitleEditor ref={domNode}>
-              <input
-                type="text"
-                onBlur={handleTitleEdit}
-                onChange={(e) => setNewTitle(e.target.value)}
-                value={newTitle}
-              />
-              <ConfirmContainer>
-                <TrashIcon fill="#FFFFFF" onClick={confirmTrigger} />
-              </ConfirmContainer>
-            </TitleEditor>
-          ) : (
-            <Title onClick={() => setProjectEditing((prev) => !prev)}>
-              {project.title}
-            </Title>
-          )}
-          {tasksFromProject.length >= 1 && (
-            dropdownOpen
-              ? <CloseIcon fill="#FFFFFF" onClick={() => setDropdownOpen((prevState) => !prevState)} />
-              : <ArrowDownIcon fill="#FFFFFF" onClick={() => setDropdownOpen((prevState) => !prevState)} />
-          )}
+          <Title>{project.title}</Title>
+          <OptionsIcon fill="#FFFFFF" onClick={editorToggle} />
         </Header>
-        <Description>
-          {project.description}
-        </Description>
+        <Description>{project.description}</Description>
       </Container>
       {dropdownOpen && (
         <TasksListBackground color={project.projectColor}>
@@ -112,5 +105,4 @@ ProjectDropdown.propTypes = {
   }).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
   editTask: PropTypes.func.isRequired,
-  projectEdit: PropTypes.func.isRequired,
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useClickOutsideHook } from '../useClickOutsideHook';
-import { ReactComponent as CloseIcon } from '../assets/close_icon.svg';
+import { useClickOutsideHook } from '../../hooks';
+import { ReactComponent as CloseIcon } from '../../icons/close_icon.svg';
 import {
   ModalMenuContainer,
   ModalMenuHeader,

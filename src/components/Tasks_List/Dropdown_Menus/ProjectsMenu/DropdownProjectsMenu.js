@@ -1,24 +1,23 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { TasksContext } from '../../../context/TasksContext';
-import { ReactComponent as TrashIcon } from '../../../utilities/assets/trash_icon.svg';
+import { ReactComponent as TrashIcon } from '../../../../icons/trash_icon.svg';
 import {
-  DropdownMenuContainer,
-  LabelContainer,
-  MenuContainer,
   MenuItem,
+  MenuContainer,
+  LabelContainer,
   NoProjectContainer,
+  DropdownMenuContainer,
 } from './DropdownProjectsMenu.styles';
 
-import { useClickOutsideHook } from '../../../utilities/useClickOutsideHook';
+import { useClickOutsideHook, useTasks } from '../../../../hooks';
 
 export function DropdownProjectsMenu({
   icon, label, editorStyle, onProjectPick, selectedProject,
 }) {
   const {
     projects,
-  } = useContext(TasksContext);
+  } = useTasks();
 
   const [open, setOpen] = useState(false);
   const history = useHistory();

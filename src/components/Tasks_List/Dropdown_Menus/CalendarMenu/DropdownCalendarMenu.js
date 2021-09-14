@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { ReactComponent as TrashIcon } from '../../../utilities/assets/trash_icon.svg';
-import { ReactComponent as DataPickUpIcon } from '../../../utilities/assets/data_pickup_icon.svg';
+import { ReactComponent as TrashIcon } from '../../../../icons/trash_icon.svg';
+import { ReactComponent as DataPickUpIcon } from '../../../../icons/data_pickup_icon.svg';
 
 import {
-  DropdownMenuContainer,
-  LabelContainer,
-  MenuContainer,
   MenuItem,
+  MenuContainer,
+  LabelContainer,
+  DropdownMenuContainer,
 } from './DropdownCalendarMenu.styles';
 
-import { useClickOutsideHook } from '../../../utilities/useClickOutsideHook';
+import { useClickOutsideHook } from '../../../../hooks';
 
 export function DropdownCalendarMenu({
   icon, label, isOpen, onDatePick, editorStyle, deadline,

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Route, Switch, useParams, useHistory,
 } from 'react-router-dom';
-import { TaskEditor } from '../Tasks_List/TaskEditor';
-import { TasksContext } from '../context/TasksContext';
+import { TaskEditor } from '../components';
+import { useTasks } from '../hooks';
 
 export function TaskEditorWithRouter({ children, baseRoute }) {
   return (
@@ -19,24 +19,12 @@ export function TaskEditorWithRouter({ children, baseRoute }) {
   );
 }
 
-TaskEditorWithRouter.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-  baseRoute: PropTypes.string.isRequired,
-};
-
 function Editor({ baseRoute }) {
-  const {
-    tasks,
-    editTask,
-    removeTask,
-  } = useContext(TasksContext);
-
+  const { tasks, handleTaskEdit, handleRemoveEdit } = useTasks();
   const history = useHistory();
   const { id } = useParams();
   const [taskToEdit] = tasks.filter((task) => task.id === parseInt(id, 10));
+
   return (
     <>
       {taskToEdit
@@ -45,8 +33,8 @@ function Editor({ baseRoute }) {
             <TaskEditor
               id={parseInt(id, 10)}
               taskToEdit={taskToEdit}
-              onEdit={editTask}
-              onDelete={removeTask}
+              onEdit={handleTaskEdit}
+              onDelete={handleRemoveEdit}
               onClose={() => history.push(`/${baseRoute}`)}
             />
           </>
@@ -54,6 +42,14 @@ function Editor({ baseRoute }) {
     </>
   );
 }
+
+TaskEditorWithRouter.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  baseRoute: PropTypes.string.isRequired,
+};
 
 Editor.propTypes = {
   baseRoute: PropTypes.string.isRequired,

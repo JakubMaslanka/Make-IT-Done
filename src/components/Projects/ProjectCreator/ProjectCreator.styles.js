@@ -1,23 +1,5 @@
 import styled from 'styled-components';
 
-export const ProjectCreatorButton = styled.div`
-    width: 100%;
-    text-align: center;
-    border-radius: 10px;
-    cursor: pointer;
-    border: 1px solid #128069;
-    background-color: #2d3e50b0;
-    color: #1BBC9B;
-    font-size: 1.25em;
-    font-weight: 500;
-    padding: 30px 0px;
-    transition: all .25s ease;
-    &:hover{
-        border: 1px solid #1BBC9B;
-        background-color: #3F5873;
-        color: #1bbc9bc9;
-    }`;
-
 export const FormContainer = styled.form`
     display: flex;
     flex-direction: column;
@@ -100,4 +82,11 @@ export const Button = styled.button`
     color: #FFFFFF;
     font-size: 1rem;
     padding: 10px 20px;
-    cursor: pointer;`;
+    cursor: pointer;
+    ${({ danger }) => (danger && (
+    `background-color: #BF3F55;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;`
+  ))}`;

@@ -1,14 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-
-import TasksContextProvider from './components/context/TasksContext';
+import UnauthenticatedApp from './UnauthenticatedApp';
 
 ReactDOM.render(
-  <TasksContextProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </TasksContextProvider>,
+  <React.StrictMode>
+    <UnauthenticatedApp />
+  </React.StrictMode>,
   document.getElementById('root'),
 );

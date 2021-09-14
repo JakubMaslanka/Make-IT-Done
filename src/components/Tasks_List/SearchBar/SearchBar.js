@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { SearchContainer } from './SearchBar.styles';
-import { ReactComponent as SearchIcon } from '../../utilities/assets/search_icon.svg';
+import { ReactComponent as SearchIcon } from '../../../icons/search_icon.svg';
+import { useTasks } from '../../../hooks';
 
 export function SearchBar() {
+  const { tasks } = useTasks();
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(
     () => {
       const handler = setTimeout(() => {
-        setSearchTerm(searchTerm);
-        // place for searchCharacters function
-      }, 1500);
+        // FetchTasksAPI.getTasksByTextSearch(searchTerm)
+        //   .then(
+        //     (result) => result.length >= 1 && setTask(result),
+        //   );
+      }, 1000);
       return () => {
         clearTimeout(handler);
       };

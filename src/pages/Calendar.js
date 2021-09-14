@@ -1,15 +1,9 @@
 import React from 'react';
-import { Navigation, CalendarManager } from '../components';
+import { CalendarManager } from '../components';
+import { Layout } from './Layout';
 
-import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
-
-const Calendar = () => (
-  <>
-    <TaskEditorWithRouter baseRoute="calendar">
-      <CalendarManager />
-    </TaskEditorWithRouter>
-    <Navigation />
-  </>
+export const Calendar = () => (
+  <Layout baseRoute="calendar">
+    <CalendarManager />
+  </Layout>
 );
-
-export default Calendar;

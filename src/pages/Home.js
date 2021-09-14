@@ -1,73 +1,50 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/named */
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import styled from 'styled-components';
-import { TaskManager, Navigation } from '../components';
+import { Layout } from './Layout';
+import { TaskManager } from '../components';
+import { useAuth } from '../hooks';
 
-import { TaskEditorWithRouter } from '../components/utilities/TaskEditorWithRouter';
+import { ReactComponent as LogoutIcon } from '../icons/logout_icon.svg';
 
-import { AuthContext } from '../components/context/AuthContext';
+import {
+  Header,
+  UpperContainer,
+} from './pages.styles';
 
-const date = new Date();
-const Home = () => {
-  const { user, AuthenticationApi } = useContext(AuthContext);
+export const Home = () => {
+  const { user, onLogout } = useAuth();
+  const [greeting, setGreeting] = useState('Good morning');
+  const date = new Date();
+  const currentHour = date.getHours();
+
+  useEffect(() => {
+    if (currentHour >= 5 && currentHour < 12) {
+      setGreeting('Good morning');
+    } else if (currentHour >= 12 && currentHour < 18) {
+      setGreeting('Good afternoon');
+    } else if (currentHour >= 18 && currentHour > 5) {
+      setGreeting('Good evening');
+    } else if (currentHour < 5) {
+      setGreeting('Good evening');
+    }
+  }, []);
+
   return (
-    <>
-      <TaskEditorWithRouter baseRoute="home">
-        <Header>
+    <Layout baseRoute="home">
+      <Header>
+        <UpperContainer>
           <p>
             {moment(date).format('dddd, D MMM')}
           </p>
-          <button
-            type="button"
-            onClick={() => {
-              AuthenticationApi.logout();
-            }}
-          >
-            Sign out
-          </button>
-          <h2>Welcome back,</h2>
-          <h1>{`${user.user.nickname}!`}</h1>
-          <h5>Your&apos;s taks for today:</h5>
-        </Header>
-        <TaskManager height={window.innerHeight - 425} />
-      </TaskEditorWithRouter>
-      <Navigation />
-    </>
+          <LogoutIcon
+            onClick={onLogout}
+          />
+        </UpperContainer>
+        <h2>{`${greeting},`}</h2>
+        <h1>{`${user.user.nickname}!`}</h1>
+        <h5>Your&apos;s taks for today:</h5>
+      </Header>
+      <TaskManager height={window.innerHeight - 425} />
+    </Layout>
   );
 };
-
-const Header = styled.div`
-  margin: 0px 20px;
-  color: #FFFFFF;
-  font-family: Roboto;
-  line-height: 70px;
-  p {
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 26px;
-    opacity: 88%;
-    margin-bottom: 0px;
-  }
-  h2{
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 300;
-    margin: 0px;
-  }
-  h1{
-    font-size: 40px;
-    font-weight: 500;
-    margin: 0px;
-    transform: translateY(-30px);
-  }
-  h5{
-    font-size: 22px;
-    font-weight: 250;
-    margin: 0px;
-  }
-`;
-
-export default Home;

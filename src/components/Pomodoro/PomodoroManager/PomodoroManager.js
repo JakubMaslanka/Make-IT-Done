@@ -1,26 +1,26 @@
 /* eslint-disable no-alert */
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CountdownSettings } from '../CountdownSettings';
 import { PomodoroTasks } from '../PomodoroTasks';
 import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
-import { ModalMenu } from '../../utilities/ModalMenu';
+import { ModalMenu } from '../../../utils/ModalMenu';
 
-import { ReactComponent as SettingsIcon } from '../../utilities/assets/settings_icon.svg';
-import { ReactComponent as NextIcon } from '../../utilities/assets/skip_next_icon.svg';
+import { ReactComponent as SettingsIcon } from '../../../icons/settings_icon.svg';
+import { ReactComponent as NextIcon } from '../../../icons/skip_next_icon.svg';
 
 import {
-  PomodoroTimerContainer,
-  TimersList,
-  Button,
-  CountdownContainer,
-  ButtonContainer,
   Title,
+  Button,
+  TimersList,
+  ButtonContainer,
+  CountdownContainer,
+  PomodoroTimerContainer,
 } from './PomodoroManager.styles';
 
-import { TasksContext } from '../../context/TasksContext';
+import { useTasks } from '../../../hooks';
 
 export function PomodoroManager() {
-  const { tasks, editTask } = useContext(TasksContext);
+  const { tasks, handleTaskEdit } = useTasks();
   const pomodoroTasks = tasks.filter((task) => task.pomodoro);
 
   const [activeTaskId, setActiveTaskId] = useState(
@@ -80,17 +80,6 @@ export function PomodoroManager() {
     setTimerTime(rounds);
   };
 
-  const taskDoneValueIncrement = () => {
-    editTask(taskFromId.id, {
-      ...taskFromId,
-      isCompleted: taskFromId.pomodoro.done + 1 >= taskFromId.pomodoro.est,
-      pomodoro: {
-        est: taskFromId.pomodoro.est,
-        done: taskFromId.pomodoro.done + 1,
-      },
-    });
-  };
-
   const stopRound = () => {
     if (window.confirm('Are you sure, you want to stop the timer?')) {
       stopAimate();
@@ -101,7 +90,14 @@ export function PomodoroManager() {
     switch (rounds.active) {
       case 'work':
         if (taskFromId) {
-          taskDoneValueIncrement();
+          handleTaskEdit(taskFromId.id, {
+            ...taskFromId,
+            isCompleted: taskFromId.pomodoro.done + 1 >= taskFromId.pomodoro.est,
+            pomodoro: {
+              est: taskFromId.pomodoro.est,
+              done: taskFromId.pomodoro.done + 1,
+            },
+          });
         }
         setRoundNumber((prevRound) => prevRound + 1);
         if (roundNumber % 4 === 0) {

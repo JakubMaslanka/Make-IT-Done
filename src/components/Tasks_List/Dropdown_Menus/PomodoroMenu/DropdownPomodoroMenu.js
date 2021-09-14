@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ReactComponent as TrashIcon } from '../../../utilities/assets/trash_icon.svg';
-import { ReactComponent as ArrowUp } from '../../../utilities/assets/arrow_up_icon.svg';
-import { ReactComponent as ArrowDrop } from '../../../utilities/assets/arrow_down_icon.svg';
+import { ReactComponent as TrashIcon } from '../../../../icons/trash_icon.svg';
+import { ReactComponent as ArrowUp } from '../../../../icons/arrow_up_icon.svg';
+import { ReactComponent as ArrowDrop } from '../../../../icons/arrow_down_icon.svg';
 
 import {
-  DropdownMenuContainer,
-  LabelContainer,
-  MenuContainer,
-  MenuItem,
-  CustomViewContainer,
-  ControlsContainer,
   Button,
+  MenuItem,
+  MenuContainer,
+  LabelContainer,
+  ControlsContainer,
+  CustomViewContainer,
+  DropdownMenuContainer,
 } from './DropdownPomodoroMenu.styles';
 
-import { useClickOutsideHook } from '../../../utilities/useClickOutsideHook';
+import { useClickOutsideHook } from '../../../../hooks';
 
 export function DropdownPomodoroMenu({
   icon, label, editorStyle, onPomodorosPick, isPomodoroSet,
