@@ -76,7 +76,7 @@ export default function TasksProvider({ children }) {
       userId: user.user.id,
       accessToken: user.accessToken,
     }));
-  }, [dispatch]);
+  }, [user, dispatch]);
 
   return (
     <TasksContext.Provider value={{

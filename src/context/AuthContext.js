@@ -12,13 +12,13 @@ export default function AuthProvider({ children }) {
         errorState('Incorrect email or password.');
       })
       .then((result) => {
-        setUser(result);
-        AuthenticationApi.openSession(result);
-        loadingState(false);
-      })
-      .finally(
-        () => pageHandle.replace('/home'),
-      );
+        if (result) {
+          setUser(result);
+          AuthenticationApi.openSession(result);
+          loadingState(false);
+          pageHandle.replace('/home');
+        }
+      });
   };
 
   const onRegister = (credentials, loadingState, errorState, pageHandle) => {
@@ -28,13 +28,13 @@ export default function AuthProvider({ children }) {
         loadingState(false);
       })
       .then((result) => {
-        setUser(result);
-        AuthenticationApi.openSession(result);
-        loadingState(false);
-      })
-      .finally(
-        () => pageHandle.replace('/home'),
-      );
+        if (result) {
+          setUser(result);
+          AuthenticationApi.openSession(result);
+          loadingState(false);
+          pageHandle.replace('/home');
+        }
+      });
   };
 
   const onLogout = () => {
