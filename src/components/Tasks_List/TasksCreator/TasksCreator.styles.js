@@ -73,4 +73,8 @@ export const CreatorContainer = styled.div`
   bottom: 0;
   margin: 0px 10px 75px 10px;
   width: calc(100% - 20px);
+  @media screen and (min-width: 900px) {
+    margin: 0px 10px 20px 10px;
+    max-width: 61%;
+  }
 `;

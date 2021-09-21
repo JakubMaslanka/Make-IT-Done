@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { CircleLoader } from '../utils/Loaders';
-import { useAuth } from '../hooks';
+import { useAuth, useDocumentTitle } from '../hooks';
 
 import {
   Form,
@@ -9,16 +9,18 @@ import {
   Button,
   Container,
   StyledErrorMessage,
+  AuthenticationForm,
 } from './pages.styles';
 
 export const Register = () => {
+  const history = useHistory();
   const { onRegister } = useAuth();
+  useDocumentTitle('Sign Up - Make-IT-Done');
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const emailInput = useRef(null);
   const nicknameInput = useRef(null);
   const passwordInput = useRef(null);
-  const history = useHistory();
 
   const handleRegisterAttempt = (e) => {
     e.preventDefault();
@@ -41,26 +43,28 @@ export const Register = () => {
 
   return (
     <Container isError={errorMessage}>
-      <h1>Sign up in app</h1>
-      {errorMessage
+      <AuthenticationForm>
+        <h1>Sign up in app</h1>
+        {errorMessage
       && (
       <StyledErrorMessage>
         {errorMessage}
       </StyledErrorMessage>
       )}
-      <Form onSubmit={handleRegisterAttempt}>
-        {isLoading
-          ? <CircleLoader />
-          : (
-            <>
-              <Input type="text" ref={nicknameInput} required placeholder="Nickname" />
-              <Input type="text" ref={emailInput} required placeholder="Email" />
-              <Input type="password" ref={passwordInput} required placeholder="Password" />
-            </>
-          )}
-        <Button type="submit">Sign up</Button>
-      </Form>
-      <Link to="/login">Already have an account? Login!</Link>
+        <Form onSubmit={handleRegisterAttempt}>
+          {isLoading
+            ? <CircleLoader />
+            : (
+              <>
+                <Input type="text" ref={nicknameInput} required placeholder="Nickname" />
+                <Input type="text" ref={emailInput} required placeholder="Email" />
+                <Input type="password" ref={passwordInput} required placeholder="Password" />
+              </>
+            )}
+          <Button type="submit">Sign up</Button>
+        </Form>
+        <Link to="/login">Already have an account? Login!</Link>
+      </AuthenticationForm>
     </Container>
   );
 };

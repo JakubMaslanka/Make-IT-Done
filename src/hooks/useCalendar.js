@@ -31,14 +31,15 @@ export function useCalendar(tasks, selectedMonth) {
     const daysArray = [];
 
     for (let i = 1; i <= indexOfFirstCalendarDay + daysInMonth; i += 1) {
-      const dayAsString = moment(`${year}-${month + 1}-${i - indexOfFirstCalendarDay}`).format('M/D/YYYY');
+      const dayAsString = moment(`${year}-${month + 1}-${i - indexOfFirstCalendarDay}`);
 
       if (i > indexOfFirstCalendarDay) {
         daysArray.push({
           value: i - indexOfFirstCalendarDay,
-          tasks: tasksForDate(dayAsString),
+          tasks: tasksForDate(dayAsString.format('M/D/YYYY')),
+          isWeekendDay: (dayAsString.get('day') === 0) || (dayAsString.get('day') === 6),
           isCurrentDay: i - indexOfFirstCalendarDay === day && selectedMonth === 0,
-          date: dayAsString,
+          date: dayAsString.format('M/D/YYYY'),
           idx: (Math.random() * 100) + 1,
         });
       } else {

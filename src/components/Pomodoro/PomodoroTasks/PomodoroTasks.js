@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { ReactComponent as CheckCircle } from '../../../icons/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../../../icons/uncheck_circle_icon.svg';
 import { ReactComponent as MoreOptionIcon } from '../../../icons/more_option_icon.svg';
-
+import { SkeletonLoader } from '../../../utils/Loaders';
 import {
   H3,
   TaskItem,
@@ -13,11 +13,12 @@ import {
 } from './PomodoroTasks.styles';
 
 export function PomodoroTasks({
-  setTitle, tasks, activeTaskId, setActiveTaskId,
+  setTitle, tasks, activeTaskId, setActiveTaskId, isContentLoading,
 }) {
   const history = useHistory();
   return (
     <Container>
+      {isContentLoading && <SkeletonLoader />}
       {tasks.map((task) => (
         <TaskItem
           onClick={() => {
@@ -51,8 +52,10 @@ PomodoroTasks.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeTaskId: PropTypes.number,
   setActiveTaskId: PropTypes.func.isRequired,
+  isContentLoading: PropTypes.bool,
 };
 
 PomodoroTasks.defaultProps = {
   activeTaskId: null,
+  isContentLoading: true,
 };

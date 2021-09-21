@@ -5,6 +5,7 @@ import { ErrorBoundarie } from '../utils/ErrorBoundarie';
 import {
   allTasks,
   getAllTasks,
+  getSpecificTasks,
   createNewTask,
   editExistTask,
   removeExistTask,
@@ -27,9 +28,24 @@ export default function TasksProvider({ children }) {
   const { tasks, isContentLoading, error } = useSelector(allTasks);
   const { projects, isProjectsLoading } = useSelector(allProjects);
 
+  const handleTaskReload = () => {
+    dispatch(getAllTasks({
+      userId: user.user.id,
+      accessToken: user.accessToken,
+    }));
+  };
+
   const handleTaskCreate = (taskToCreate) => {
     dispatch(createNewTask({
       payload: taskToCreate,
+      userId: user.user.id,
+      accessToken: user.accessToken,
+    }));
+  };
+
+  const handleTaskSearch = (searchValue) => {
+    dispatch(getSpecificTasks({
+      inputValue: searchValue,
       userId: user.user.id,
       accessToken: user.accessToken,
     }));
@@ -68,14 +84,16 @@ export default function TasksProvider({ children }) {
   };
 
   useEffect(() => {
-    dispatch(getAllTasks({
-      userId: user.user.id,
-      accessToken: user.accessToken,
-    }));
-    dispatch(getAllProjects({
-      userId: user.user.id,
-      accessToken: user.accessToken,
-    }));
+    if (user) {
+      dispatch(getAllTasks({
+        userId: user.user.id,
+        accessToken: user.accessToken,
+      }));
+      dispatch(getAllProjects({
+        userId: user.user.id,
+        accessToken: user.accessToken,
+      }));
+    }
   }, [user, dispatch]);
 
   return (
@@ -84,6 +102,8 @@ export default function TasksProvider({ children }) {
       isProjectsLoading,
       tasks,
       projects,
+      handleTaskReload,
+      handleTaskSearch,
       handleTaskCreate,
       handleTaskEdit,
       handleRemoveEdit,

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     max-width: 480px;
+    width: 100%;
     margin: 20px auto;`;
 
 export const TaskItem = styled.div`
@@ -10,11 +11,12 @@ export const TaskItem = styled.div`
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    padding: 10px;
-    width: 480px;
+    padding: 15px;
+    // width: 480px;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 8px;
+    margin: 12px 8px;
+    overflow-y: scroll;
     text-align: left;
     font-size: 16px;
     color: white;

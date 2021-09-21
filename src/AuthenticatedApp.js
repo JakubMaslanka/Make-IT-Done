@@ -35,7 +35,7 @@ function PrivateRoute({ ...rest }) {
       {user ? (
         <Route path={path} component={component} />
       ) : (
-        <Redirect to="/login" />
+        <Redirect to="/" />
       )}
     </>
   );

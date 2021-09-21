@@ -6,4 +6,3 @@ export * from './Projects';
 export * from './Tasks';
 export * from './Calendar';
 export * from './Pomodoro';
-export * from './NotFound';

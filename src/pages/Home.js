@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Layout } from './Layout';
 import { TaskManager } from '../components';
-import { useAuth } from '../hooks';
+import { useAuth, useDocumentTitle } from '../hooks';
 
 import { ReactComponent as LogoutIcon } from '../icons/logout_icon.svg';
 
@@ -13,6 +13,7 @@ import {
 
 export const Home = () => {
   const { user, onLogout } = useAuth();
+  useDocumentTitle('Home - Make-IT-Done');
   const [greeting, setGreeting] = useState('Good morning');
   const date = new Date();
   const currentHour = date.getHours();
@@ -36,9 +37,11 @@ export const Home = () => {
           <p>
             {moment(date).format('dddd, D MMM')}
           </p>
+          {window.innerWidth < 900 && (
           <LogoutIcon
             onClick={onLogout}
           />
+          )}
         </UpperContainer>
         <h2>{`${greeting},`}</h2>
         <h1>{`${user.user.nickname}!`}</h1>

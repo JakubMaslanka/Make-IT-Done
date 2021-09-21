@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { useConfirm, useClickOutsideHook } from '../../../hooks';
+import { useConfirm, useClickOutsideHook, useSoundEffect } from '../../../hooks';
 
 import { ReactComponent as CheckCircle } from '../../../icons/check_circle_icon.svg';
 import { ReactComponent as UncheckCircle } from '../../../icons/uncheck_circle_icon.svg';
@@ -20,10 +20,11 @@ import {
   DropdownProjectsMenu,
 } from '../Dropdown_Menus';
 import {
+  Textarea,
+  InputTitle,
+  DatePicker,
   EditorContainer,
   HeaderContainer,
-  DatePicker,
-  Textarea,
   FooterContainer,
   GreyedOutBackground,
 } from './TaskEditor.styles';
@@ -35,18 +36,23 @@ export function TaskEditor({
   const [date, setDate] = useState(taskToEdit.deadline || null);
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [taskDescription, setTaskDescription] = useState(taskToEdit.description || '');
+  const [playSound] = useSoundEffect();
 
   const handleTitleEdit = () => onEdit(
     taskToEdit.id,
     { ...taskToEdit, title: newTitle },
   );
-  const handleCompleted = () => onEdit(
-    taskToEdit.id,
-    {
-      ...taskToEdit,
-      isCompleted: !taskToEdit.isCompleted,
-    },
-  );
+  const handleCompleted = () => {
+    playSound(!taskToEdit.isCompleted);
+    onEdit(
+      taskToEdit.id,
+      {
+        ...taskToEdit,
+        isCompleted: !taskToEdit.isCompleted,
+      },
+    );
+  };
+
   const handleFavoriteMark = () => onEdit(
     taskToEdit.id,
     {
@@ -114,7 +120,13 @@ export function TaskEditor({
           ) : (
             <UncheckCircle fill="#128069" onClick={handleCompleted} />
           )}
-          <input onBlur={handleTitleEdit} onChange={(e) => setNewTitle(e.target.value)} value={newTitle} type="text" />
+          <InputTitle
+            onBlur={handleTitleEdit}
+            completed={taskToEdit.isCompleted}
+            onChange={(e) => setNewTitle(e.target.value)}
+            value={newTitle}
+            type="text"
+          />
           {taskToEdit.isFavorite ? (
             <CheckStarIcon fill="#1BBC9B" onClick={handleFavoriteMark} />
           ) : (

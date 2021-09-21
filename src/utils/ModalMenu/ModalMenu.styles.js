@@ -14,7 +14,10 @@ export const ModalMenuContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%;`;
+    width: 70%;
+    @media screen and (min-width: 900px) {
+        width: 45%;
+    }`;
 
 export const ModalMenuHeader = styled.div`
       display: flex;

@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "title": "Ucze się angulara",
+      "title": "I learning Jest/ReactTestingLibrary",
       "isCompleted": false,
       "isFavorite": false,
       "deadline": "9/14/2021",
@@ -10,14 +10,14 @@
         "done": 0
       },
       "projectId": "ee7df8f4-8f1e-40f2-a205-027e9e70e245",
-      "projectTitle": "Ofijalny test",
+      "projectTitle": "Official test",
       "timeStump": "2021-09-12T21:29:21+02:00",
       "userId": 1,
       "id": 559,
       "description": "xd"
     },
     {
-      "title": "Używam reduxa",
+      "title": "I using redux, yey",
       "isCompleted": false,
       "isFavorite": false,
       "deadline": "9/13/2021",
@@ -27,16 +27,278 @@
       "timeStump": "2021-09-13T18:52:26+02:00",
       "userId": 1,
       "id": 564
+    },
+    {
+      "title": "Reply to emails",
+      "isCompleted": false,
+      "isFavorite": true,
+      "deadline": null,
+      "pomodoro": {
+        "est": 2,
+        "done": 0
+      },
+      "projectId": "3ae1b69b-d5c8-4568-8e11-80ad91cc2f46",
+      "projectTitle": "Work",
+      "timeStump": "2021-09-20T14:31:51+02:00",
+      "userId": 2,
+      "id": 565
+    },
+    {
+      "title": "Estimate the cost of a new website for Tom",
+      "isCompleted": false,
+      "isFavorite": true,
+      "deadline": "9/20/2021",
+      "pomodoro": null,
+      "projectId": "3ae1b69b-d5c8-4568-8e11-80ad91cc2f46",
+      "projectTitle": "Work",
+      "timeStump": "2021-09-20T14:38:28+02:00",
+      "userId": 2,
+      "id": 566
+    },
+    {
+      "title": "Meet with Andrew",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/27/2021",
+      "pomodoro": null,
+      "projectId": null,
+      "projectTitle": null,
+      "timeStump": "2021-09-20T14:45:15+02:00",
+      "userId": 2,
+      "id": 567
+    },
+    {
+      "title": "Call with the project manager",
+      "isCompleted": false,
+      "isFavorite": true,
+      "deadline": "9/21/2021",
+      "timeStump": "2021-09-20T14:48:31+02:00",
+      "userId": 2,
+      "id": 568,
+      "projectId": "3ae1b69b-d5c8-4568-8e11-80ad91cc2f46",
+      "projectTitle": "Work"
+    },
+    {
+      "title": "Code Review",
+      "isCompleted": false,
+      "isFavorite": true,
+      "deadline": "9/21/2021",
+      "timeStump": "2021-09-20T14:49:03+02:00",
+      "userId": 2,
+      "id": 569
+    },
+    {
+      "title": "Gym with Alex",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/22/2021",
+      "timeStump": "2021-09-20T14:49:39+02:00",
+      "userId": 2,
+      "id": 570,
+      "projectId": "d3157887-17b9-4b4e-a2ee-3529a03a4e45",
+      "projectTitle": "Hobby"
+    },
+    {
+      "title": "Alex's birthday",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/24/2021",
+      "timeStump": "2021-09-20T14:50:08+02:00",
+      "userId": 2,
+      "id": 571,
+      "projectId": "d3157887-17b9-4b4e-a2ee-3529a03a4e45",
+      "projectTitle": "Hobby"
+    },
+    {
+      "title": "Family dinner",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/26/2021",
+      "timeStump": "2021-09-20T14:50:19+02:00",
+      "userId": 2,
+      "id": 572
+    },
+    {
+      "title": "1# UX for Tom",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/23/2021",
+      "timeStump": "2021-09-20T14:50:52+02:00",
+      "userId": 2,
+      "id": 573
+    },
+    {
+      "title": "Code Review",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/24/2021",
+      "timeStump": "2021-09-20T14:51:08+02:00",
+      "userId": 2,
+      "id": 574
+    },
+    {
+      "title": "Meet with client",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/24/2021",
+      "timeStump": "2021-09-20T14:51:19+02:00",
+      "userId": 2,
+      "id": 575
+    },
+    {
+      "title": "2# UX for Tom",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/27/2021",
+      "timeStump": "2021-09-20T14:51:35+02:00",
+      "userId": 2,
+      "id": 576
+    },
+    {
+      "title": "New blog post",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/22/2021",
+      "timeStump": "2021-09-20T14:52:37+02:00",
+      "userId": 2,
+      "id": 577,
+      "pomodoro": null
+    },
+    {
+      "title": "New blog post",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/29/2021",
+      "timeStump": "2021-09-20T14:53:49+02:00",
+      "userId": 2,
+      "id": 578,
+      "pomodoro": null
+    },
+    {
+      "title": "New blog post",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/15/2021",
+      "timeStump": "2021-09-20T14:53:57+02:00",
+      "userId": 2,
+      "id": 579,
+      "pomodoro": {
+        "est": 4,
+        "done": 4
+      }
+    },
+    {
+      "title": "New blog post",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/8/2021",
+      "timeStump": "2021-09-20T14:54:04+02:00",
+      "userId": 2,
+      "id": 580
+    },
+    {
+      "title": "New blog post",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/1/2021",
+      "timeStump": "2021-09-20T14:54:19+02:00",
+      "userId": 2,
+      "id": 581
+    },
+    {
+      "title": "Family dinner",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/12/2021",
+      "timeStump": "2021-09-20T14:54:38+02:00",
+      "userId": 2,
+      "id": 582
+    },
+    {
+      "title": "Side work advertising on Fackbook",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/13/2021",
+      "timeStump": "2021-09-20T14:57:39+02:00",
+      "userId": 2,
+      "id": 583
+    },
+    {
+      "title": "Call with designers team",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/14/2021",
+      "timeStump": "2021-09-20T14:58:00+02:00",
+      "userId": 2,
+      "id": 584
+    },
+    {
+      "title": "Code",
+      "isCompleted": false,
+      "isFavorite": false,
+      "deadline": "9/14/2021",
+      "timeStump": "2021-09-20T14:58:03+02:00",
+      "userId": 2,
+      "id": 585,
+      "pomodoro": {
+        "est": 8,
+        "done": 0
+      },
+      "projectId": "3ae1b69b-d5c8-4568-8e11-80ad91cc2f46",
+      "projectTitle": "Work"
+    },
+    {
+      "title": "Buy plane tickets",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/17/2021",
+      "timeStump": "2021-09-20T14:58:57+02:00",
+      "userId": 2,
+      "id": 586
+    },
+    {
+      "title": "Gym",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/18/2021",
+      "timeStump": "2021-09-20T14:59:19+02:00",
+      "userId": 2,
+      "id": 587
+    },
+    {
+      "title": "Gym",
+      "isCompleted": true,
+      "isFavorite": false,
+      "deadline": "9/11/2021",
+      "timeStump": "2021-09-20T14:59:24+02:00",
+      "userId": 2,
+      "id": 588
     }
   ],
   "projects": [
     {
       "id": 176,
-      "title": "Ofijalny test",
-      "description": "mamale\n",
+      "title": "Official test",
+      "description": "TestTestTest",
       "projectColor": "hsl(200, 75%, 42%)",
       "uniqueProjectId": "ee7df8f4-8f1e-40f2-a205-027e9e70e245",
       "userId": 1
+    },
+    {
+      "id": 527,
+      "title": "Work",
+      "description": "Main work and side work",
+      "projectColor": "hsl(280, 75%, 42%)",
+      "uniqueProjectId": "3ae1b69b-d5c8-4568-8e11-80ad91cc2f46",
+      "userId": 2
+    },
+    {
+      "id": 559,
+      "title": "Hobby",
+      "description": "",
+      "projectColor": "hsl(211, 75%, 42%)",
+      "uniqueProjectId": "d3157887-17b9-4b4e-a2ee-3529a03a4e45",
+      "userId": 2
     }
   ],
   "users": [
@@ -45,6 +307,12 @@
       "password": "$2a$10$LTjGD12mIcoEl4dmJ4274O2riU1rUqKx7c/mssn1qJW6/wDo.6E6q",
       "nickname": "Jakub",
       "id": 1
+    },
+    {
+      "email": "Elliot@wp.pl",
+      "password": "$2a$10$CXQazFwN38AkP1H5aFtD9OJ6ognAWHVOigPisr7cKr9OhPizqMcZe",
+      "nickname": "Elliot",
+      "id": 2
     }
   ]
 }

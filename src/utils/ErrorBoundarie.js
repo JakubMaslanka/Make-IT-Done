@@ -7,9 +7,10 @@ export function ErrorBoundarie({ children, error, onLogout }) {
     confirmTrigger,
     ConfirmContainer,
   } = useConfirm(
-    () => onLogout,
+    onLogout,
     error && error.title,
     error && error.message,
+    true,
   );
 
   useEffect(() => confirmTrigger(), []);

@@ -26,14 +26,6 @@ export const HeaderContainer = styled.div`
   padding: 10px;
   border-radius: 10px;
   border-bottom: .3px solid rgba(255,255,255, .3);
-    input {
-      border: none;
-      background: none;
-      outline: none;
-      font-size: 18px;
-      font-weight: 600;
-      color: white;
-    }
     svg{
       width: 30px;
       height: 30px;
@@ -45,6 +37,15 @@ export const HeaderContainer = styled.div`
       }
     }
 `;
+
+export const InputTitle = styled.input`
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 18px;
+  font-weight: 600;
+  ${({ completed }) => completed && 'text-decoration: line-through;'}
+  color: white;`;
 
 export const EditorContainer = styled.div`
   position: fixed;

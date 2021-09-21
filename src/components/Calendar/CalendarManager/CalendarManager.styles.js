@@ -12,10 +12,7 @@ export const DayOfWeek = styled.div`
     text-align: center;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    color: #1BBC9B;
-    @media (max-width: 600px) {
-    font-size: 8px;
-    }`;
+    color: #1BBC9B;`;
 
 export const DaysGrid = styled.div`
     display: grid;
@@ -30,7 +27,19 @@ export const DaysGrid = styled.div`
 
 export const CalendarContainer = styled.div`
     width: 95%;
-    margin: auto;`;
+    margin: auto;
+    @media screen and (min-width: 900px) {
+        width: 100%;
+    }
+    @media screen and (min-width: 1200px) {
+        width: 90%;
+    }
+    @media screen and (min-width: 1400px) {
+        width: 80%;
+    }
+    @media screen and (min-width: 1600px) {
+        width: 65%;
+    }`;
 
 export const DayContainer = styled.div`
     width: 100%;
@@ -39,7 +48,7 @@ export const DayContainer = styled.div`
     text-align: right;
     cursor: pointer;
     box-sizing: border-box;
-    color: #98a0a6;
+    ${({ isWeekend }) => (isWeekend ? 'color: #BF3F55;' : 'color: #98a0a6;')}
     font-size: .9rem;
     border: 1px solid rgba(166, 168, 179, 0.12);
     display: flex;

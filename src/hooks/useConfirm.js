@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { Dialog } from '../utils/Dialog';
 
-export function useConfirm(callback, title, message) {
+export function useConfirm(callback, title, message, alertType) {
   const [isDialogOpen, setDialogOpen] = useState(false);
 
   const confirmTrigger = () => setDialogOpen(true);
@@ -16,7 +16,14 @@ export function useConfirm(callback, title, message) {
   };
 
   const ConfirmDialog = () => createPortal(
-    <Dialog title={title} message={message} accept={accept} cancel={cancel} />, document.body,
+    <Dialog
+      isAlertType={alertType}
+      title={title}
+      message={message}
+      accept={accept}
+      cancel={cancel}
+    />,
+    document.body,
   );
 
   const ConfirmContainer = ({ children }) => (
@@ -48,4 +55,9 @@ useConfirm.propTypes = {
   callback: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
+  alertType: PropTypes.bool,
+};
+
+useConfirm.defaultProps = {
+  alertType: false,
 };
