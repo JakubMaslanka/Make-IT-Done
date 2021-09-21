@@ -1,15 +1,14 @@
 {
   "name": "make-it-done",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An application that allows you to control everyday tasks and projects. It provides the tools to stay focused, visualize deadlines, and keep everything in one place.",
-  "private": true,
+  "private": false,
   "keywords": [
     "App",
     "todo",
     "pomodoro",
     "technique",
-    "calendar",
-    "aio"
+    "calendar"
   ],
   "author": "Jakub Maślanka",
   "license": "ISC",
@@ -33,8 +32,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "client": "react-scripts start",
-    "server": "json-server-auth --watch API/db.json --routes API/routes.json --port 5000",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
