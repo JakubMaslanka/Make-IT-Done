@@ -51,8 +51,8 @@ export const Login = () => {
             ? <CircleLoader />
             : (
               <>
-                <Input required type="text" ref={emailInput} defaultValue="kuba@kursreact.pl" placeholder="Email" />
-                <Input required type="password" ref={passwordInput} defaultValue="zaq1@WSX" placeholder="Password" />
+                <Input required type="text" ref={emailInput} placeholder="Email" />
+                <Input required type="password" ref={passwordInput} placeholder="Password" />
               </>
             )}
           <Button type="submit">Log in</Button>

@@ -273,6 +273,19 @@
       "timeStump": "2021-09-20T14:59:24+02:00",
       "userId": 2,
       "id": 588
+    },
+    {
+      "title": "Make a call to Adam",
+      "isCompleted": false,
+      "isFavorite": true,
+      "deadline": "9/21/2021",
+      "pomodoro": null,
+      "projectId": "91502e18-b3b5-4b28-be5f-2f577f1bc19c",
+      "projectTitle": "Work",
+      "timeStump": "2021-09-21T23:06:49+02:00",
+      "userId": 3,
+      "id": 589,
+      "description": "515555123"
     }
   ],
   "projects": [
@@ -299,6 +312,14 @@
       "projectColor": "hsl(211, 75%, 42%)",
       "uniqueProjectId": "d3157887-17b9-4b4e-a2ee-3529a03a4e45",
       "userId": 2
+    },
+    {
+      "id": 572,
+      "title": "Work",
+      "description": "",
+      "projectColor": "hsl(120, 75%, 42%)",
+      "uniqueProjectId": "91502e18-b3b5-4b28-be5f-2f577f1bc19c",
+      "userId": 3
     }
   ],
   "users": [
@@ -313,6 +334,12 @@
       "password": "$2a$10$CXQazFwN38AkP1H5aFtD9OJ6ognAWHVOigPisr7cKr9OhPizqMcZe",
       "nickname": "Elliot",
       "id": 2
+    },
+    {
+      "email": "TestingAccount@wp.pl",
+      "password": "$2a$10$orto.raU9v3hyBBmuKVTU.dsxJX/s0LOYn8E2TpQqwU2D6CuQoZHW",
+      "nickname": "TestingAccount",
+      "id": 3
     }
   ]
 }
