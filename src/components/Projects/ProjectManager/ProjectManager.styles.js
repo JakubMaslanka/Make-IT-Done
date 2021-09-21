@@ -12,7 +12,11 @@ export const Container = styled.div`
     font-family: Roboto;
     margin: 10px 20px;
     height: 82vh;
-    overflow-y: scroll;`;
+    overflow-y: scroll;
+    @media screen and (min-width: 900px) {
+        max-width: 66%;
+        height: 100%;
+    }`;
 
 export const ProjectCreatorButton = styled.div`
     width: 100%;

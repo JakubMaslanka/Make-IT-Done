@@ -8,14 +8,14 @@ import {
 } from './Dialog.styles';
 
 export const Dialog = ({
-  title, message, accept, cancel,
+  isAlertType, title, message, accept, cancel,
 }) => (
   <ConfirmOverlay>
     <DialogContainer>
       <h2>{title}</h2>
       <p>{message}</p>
       <ButtonsContainer>
-        <Button type="button" onClick={cancel}>Cancel</Button>
+        {!isAlertType && <Button type="button" onClick={cancel}>Cancel</Button>}
         <Button submit type="button" onClick={accept}>Accept</Button>
       </ButtonsContainer>
     </DialogContainer>
@@ -27,9 +27,11 @@ Dialog.propTypes = {
   message: PropTypes.string,
   accept: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
+  isAlertType: PropTypes.bool,
 };
 
 Dialog.defaultProps = {
   title: 'Confirm Prompt',
   message: 'Are you sure?',
+  isAlertType: false,
 };

@@ -4,7 +4,6 @@ import { CountdownSettings } from '../CountdownSettings';
 import { PomodoroTasks } from '../PomodoroTasks';
 import { CountdownTimer } from '../CountdownTimer/CountdownTimer';
 import { ModalMenu } from '../../../utils/ModalMenu';
-
 import { ReactComponent as SettingsIcon } from '../../../icons/settings_icon.svg';
 import { ReactComponent as NextIcon } from '../../../icons/skip_next_icon.svg';
 
@@ -20,7 +19,7 @@ import {
 import { useTasks } from '../../../hooks';
 
 export function PomodoroManager() {
-  const { tasks, handleTaskEdit } = useTasks();
+  const { tasks, isContentLoading, handleTaskEdit } = useTasks();
   const pomodoroTasks = tasks.filter((task) => task.pomodoro);
 
   const [activeTaskId, setActiveTaskId] = useState(
@@ -194,6 +193,7 @@ export function PomodoroManager() {
       </ButtonContainer>
       <Title>{title}</Title>
       <PomodoroTasks
+        isContentLoading={isContentLoading}
         tasks={pomodoroTasks}
         activeTaskId={activeTaskId}
         setActiveTaskId={(taskId) => setActiveTaskId(taskId)}

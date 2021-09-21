@@ -10,6 +10,14 @@ export const getAllTasks = createAsyncThunk(
   },
 );
 
+export const getSpecificTasks = createAsyncThunk(
+  'tasks/getSpecificTasks',
+  async ({ inputValue, userId, accessToken }) => {
+    const response = await TasksApi.getTasksByTextSearch(inputValue, userId, accessToken);
+    return response;
+  },
+);
+
 export const createNewTask = createAsyncThunk(
   'tasks/createNewTask',
   async ({ payload, userId, accessToken }) => {
@@ -45,6 +53,7 @@ const tasksSlice = createSlice({
     [getAllTasks.pending]: (state) => {
       state.isContentLoading = true;
       state.error = null;
+      state.tasks = [];
     },
     [getAllTasks.fulfilled]: (state, { payload }) => {
       state.tasks = payload;
@@ -52,6 +61,24 @@ const tasksSlice = createSlice({
       state.error = null;
     },
     [getAllTasks.rejected]: (state) => {
+      state.error = {
+        title: 'Data Fetch Error',
+        message: 'It looks like something went wrong with fetching data. We will fix that error as soon as possible. Sorry for the inconvenience. Click "Accept" button to get back to the landing page.',
+      };
+      state.isContentLoading = false;
+      state.tasks = [];
+    },
+    [getSpecificTasks.pending]: (state) => {
+      state.isContentLoading = true;
+      state.tasks = [];
+      state.error = null;
+    },
+    [getSpecificTasks.fulfilled]: (state, { payload }) => {
+      state.tasks = payload;
+      state.isContentLoading = false;
+      state.error = null;
+    },
+    [getSpecificTasks.rejected]: (state) => {
       state.error = {
         title: 'Data Fetch Error',
         message: 'It looks like something went wrong with fetching data. We will fix that error as soon as possible. Sorry for the inconvenience. Click "Accept" button to get back to the landing page.',

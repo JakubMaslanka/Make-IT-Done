@@ -38,7 +38,7 @@ export function TaskItem({
           isCompleted={task.isCompleted}
           areDetailsSet={task.deadline || task.description || task.pomodoro || task.projectTitle}
         >
-          <h3>{task.title.length > 25 ? `${task.title.substring(0, 24)}...` : `${task.title}`}</h3>
+          <h3>{task.title.length > 23 && window.innerWidth < 900 ? `${task.title.substring(0, 22)}...` : `${task.title}`}</h3>
           <TaskDetails brighter={itemColor} smallerScreen={window.innerWidth < 480}>
             {task.description && (
               <p><NoteCalendar /></p>

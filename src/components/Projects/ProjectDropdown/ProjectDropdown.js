@@ -5,7 +5,7 @@ import { ReactComponent as OptionsIcon } from '../../../icons/more_option_icon.s
 import { ProjectCreator } from '../ProjectCreator';
 import { ModalMenu } from '../../../utils/ModalMenu';
 
-import { useConfirm, useTasks } from '../../../hooks';
+import { useConfirm, useTasks, useSoundEffect } from '../../../hooks';
 
 import {
   Title,
@@ -21,6 +21,7 @@ export function ProjectDropdown({ project, tasks, editTask }) {
   const { handleTaskEdit, handleProjectRemove } = useTasks();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isEditorOpen, setEditorOpen] = useState(false);
+  const [playSound] = useSoundEffect();
 
   const tasksFromProject = tasks.filter((task) => task.projectId === project.uniqueProjectId);
 
@@ -48,7 +49,7 @@ export function ProjectDropdown({ project, tasks, editTask }) {
     }
   };
 
-  const { confirmTrigger, ConfirmContainer } = useConfirm(confirmAction, 'Project deleting', `The project "${project.title}" will be permanently deleted.${tasksFromProject.length > 0 && `You've ${tasksFromProject.length} tasks assign to it! `}Are you sure?`);
+  const { confirmTrigger, ConfirmContainer } = useConfirm(confirmAction, 'Project deleting', `The project "${project.title}" will be permanently deleted. ${tasksFromProject.length > 0 ? `You've ${tasksFromProject.length} tasks assign to it! Are you sure?` : 'Are you sure?'}`);
 
   return (
     <>
@@ -83,7 +84,10 @@ export function ProjectDropdown({ project, tasks, editTask }) {
               <TaskItem
                 key={task.id}
                 task={task}
-                onComplete={() => editTask(task.id, { ...task, isCompleted: !task.isCompleted })}
+                onComplete={() => {
+                  playSound(!task.isCompleted);
+                  editTask(task.id, { ...task, isCompleted: !task.isCompleted });
+                }}
                 onFavorite={() => editTask(task.id, { ...task, isFavorite: !task.isFavorite })}
                 itemColor={project.projectColor}
               />
