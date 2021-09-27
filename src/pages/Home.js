@@ -47,7 +47,7 @@ export const Home = () => {
         <h1>{`${user.user.nickname}!`}</h1>
         <h5>Your&apos;s taks for today:</h5>
       </Header>
-      <TaskManager height={window.innerHeight - 425} />
+      <TaskManager height={window.innerHeight - 125} />
     </Layout>
   );
 };

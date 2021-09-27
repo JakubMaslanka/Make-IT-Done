@@ -80,5 +80,6 @@ export const Title = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     font-size: 22px;
     font-weight: 300;`;

@@ -17,29 +17,34 @@ export function useCalendar(tasks, selectedMonth) {
       dt.setMonth(new Date().getMonth() + selectedMonth);
     }
 
-    setDateDisplay(moment(dt).format('MMMM, YYYY'));
+    setDateDisplay(moment(dt.toISOString()).format('MMMM, YYYY'));
 
     const day = dt.getDate();
     const month = dt.getMonth();
     const year = dt.getFullYear();
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-    const firstCalendarDayInWeek = moment(dt).startOf('month').format('dddd');
-    const daysInMonth = moment(dt).daysInMonth();
+    const firstCalendarDayInWeek = moment(dt.toISOString()).startOf('month').format('dddd');
+    const daysInMonth = moment(dt.toISOString()).daysInMonth();
     const indexOfFirstCalendarDay = weekdays.indexOf(firstCalendarDayInWeek);
 
     const daysArray = [];
 
     for (let i = 1; i <= indexOfFirstCalendarDay + daysInMonth; i += 1) {
-      const dayAsString = moment(`${year}-${month + 1}-${i - indexOfFirstCalendarDay}`);
+      const dayAsNumber = new Date(
+        parseInt(year, 10),
+        parseInt(month, 10),
+        parseInt(i - indexOfFirstCalendarDay, 10),
+      );
+      const dayAsString = `${month + 1}/${i - indexOfFirstCalendarDay}/${year}`;
 
       if (i > indexOfFirstCalendarDay) {
         daysArray.push({
           value: i - indexOfFirstCalendarDay,
-          tasks: tasksForDate(dayAsString.format('M/D/YYYY')),
-          isWeekendDay: (dayAsString.get('day') === 0) || (dayAsString.get('day') === 6),
+          tasks: tasksForDate(dayAsString),
+          isWeekendDay: (dayAsNumber.getDay() === 0) || (dayAsNumber.getDay() === 6),
           isCurrentDay: i - indexOfFirstCalendarDay === day && selectedMonth === 0,
-          date: dayAsString.format('M/D/YYYY'),
+          date: dayAsString,
           idx: (Math.random() * 100) + 1,
         });
       } else {

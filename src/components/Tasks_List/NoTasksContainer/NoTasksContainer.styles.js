@@ -5,7 +5,7 @@ export const PositionContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   margin: 10px auto;`;
@@ -16,7 +16,15 @@ export const Container = styled.div`
   border-radius: 20px;
   margin: 0px 25px;
   svg{
-    width: 171px;
-    heigth: 210px;
+    ${({ biggerSvg }) => (biggerSvg ? `
+      width: 171px;
+      heigth: 210px;` : `
+        width: 90px;
+        heigth: 90px;
+      `)}
+    @media screen and (min-height: 800px) {
+      width: 171px;
+      heigth: 210px;
+    }
   }
   `;

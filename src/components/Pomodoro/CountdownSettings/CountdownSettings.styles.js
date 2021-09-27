@@ -30,10 +30,12 @@ export const Input = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     p{
     font-weight: 500;
     letter-spacing: 0.1em;
+    height: 40px;
     text-align: center;
     color: #1BBC9B;
     margin: 0px;

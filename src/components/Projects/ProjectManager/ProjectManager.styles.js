@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div` 
     display: flex;
     padding: 0px 1px;
     flex-direction: column;
@@ -16,7 +16,8 @@ export const Container = styled.div`
     @media screen and (min-width: 900px) {
         max-width: 66%;
         height: 100%;
-    }`;
+    }
+    height: 100vh;`;
 
 export const ProjectCreatorButton = styled.div`
     width: 100%;
@@ -26,6 +27,7 @@ export const ProjectCreatorButton = styled.div`
     border: 1px solid #128069;
     background-color: #2d3e50b0;
     color: #1BBC9B;
+    font-family: Lato;
     font-size: 1.25em;
     font-weight: 500;
     padding: 30px 0px;

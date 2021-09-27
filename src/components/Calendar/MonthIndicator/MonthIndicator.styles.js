@@ -7,7 +7,7 @@ justify-content: space-between;
 align-items: center;
 margin: 10px 20px;
 color: #FFFFFF;
-font-family: Roboto;
+font-family: Lato;
 line-height: 70px;
 h2{
   font-size: 32px;

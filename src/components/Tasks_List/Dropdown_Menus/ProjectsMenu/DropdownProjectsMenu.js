@@ -75,7 +75,7 @@ export function DropdownProjectsMenu({
                     setOpen(false);
                   }}
                 >
-                  <p>Delate Pomodoros</p>
+                  <p>Delate Project</p>
                   <TrashIcon className="icon" />
                 </MenuItem>
               </>

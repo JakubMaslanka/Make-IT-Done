@@ -23,6 +23,7 @@ export const Title = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    font-family: Lato;
     h3{
     margin: 7.5px 0px;
     font-size: 1.28rem;

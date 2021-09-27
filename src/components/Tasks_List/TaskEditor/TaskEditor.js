@@ -38,10 +38,10 @@ export function TaskEditor({
   const [taskDescription, setTaskDescription] = useState(taskToEdit.description || '');
   const [playSound] = useSoundEffect();
 
-  const handleTitleEdit = () => onEdit(
+  const handleTitleEdit = () => (newTitle !== '' ? onEdit(
     taskToEdit.id,
     { ...taskToEdit, title: newTitle },
-  );
+  ) : setNewTitle(taskToEdit.title));
   const handleCompleted = () => {
     playSound(!taskToEdit.isCompleted);
     onEdit(

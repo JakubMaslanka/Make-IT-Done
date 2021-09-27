@@ -6,7 +6,7 @@ import { PositionContainer, Container } from './NoTasksContainer.styles';
 
 export const NoTasksContainer = ({ allTaskView }) => (
   <PositionContainer>
-    <Container>
+    <Container biggerSvg={allTaskView}>
       {allTaskView
         ? (
           <>
@@ -16,7 +16,7 @@ export const NoTasksContainer = ({ allTaskView }) => (
         )
         : (
           <>
-            <TaskNotCreate />
+            {window.innerHeight > 650 && <TaskNotCreate />}
             <h3>There aren&apos;t tasks waiting for you.</h3>
             <span>You can always add a task to your Home view by marking it with a star icon.</span>
           </>

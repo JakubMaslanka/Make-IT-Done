@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Header = styled.div`
     margin: 10px 20px;
     color: #FFFFFF;
-    font-family: Roboto;
+    font-family: Lato;
     line-height: 70px;
     h4{
         font-size: 22px;
@@ -32,7 +32,8 @@ export const Header = styled.div`
     }
     h5{
         font-size: 22px;
-        font-weight: 250;
+        font-weight: 200;
+        line-height: 20px;
         margin: 0px;
     }`;
 

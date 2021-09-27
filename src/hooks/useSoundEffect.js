@@ -5,6 +5,9 @@ export const useSoundEffect = () => {
   const [audio] = useState(new Audio(sound));
   const [playing, setPlaying] = useState(false);
   const toggle = (para) => setPlaying(para);
+  // necessary to avoid console errors
+  window.HTMLMediaElement.prototype.play = () => { };
+  window.HTMLMediaElement.prototype.pause = () => { };
 
   useEffect(() => {
     if (playing) {

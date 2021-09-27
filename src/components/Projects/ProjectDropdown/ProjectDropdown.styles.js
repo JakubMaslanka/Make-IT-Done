@@ -66,6 +66,7 @@ export const Header = styled.div`
 export const Container = styled.div`
   position: relative;
   width: 100%;
+  font-family: Lato;
   color: #EEEEEE;
   z-index: 1;
   ${({ color }) => `background-color: ${color};`}

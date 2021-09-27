@@ -9,4 +9,5 @@ export const TaskListPosition = styled.div`
         max-width: 66%;
         height: 100%;
     }
+    height: 100vh;
 `;
