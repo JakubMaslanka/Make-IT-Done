@@ -66,11 +66,11 @@
 
 ## Presentation
 
-[![Gif presentation, may take a long time to load](https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/Demo#1.gif)](https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/Demo#1.gif)
+[![Gif presentation, may take a long time to load](https://github.com/JakubMaslanka/Make-IT-Done/blob/master/img/Demo%231.gif?raw=true)](https://github.com/JakubMaslanka/Make-IT-Done/blob/master/img/Demo%231.gif?raw=true)
 
 ---
 
-[![Gif presentation, may take a long time to load](https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/Demo#2.gif)](https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/Demo#2.gif)
+[![Gif presentation, may take a long time to load](https://github.com/JakubMaslanka/Make-IT-Done/blob/master/img/Demo%232.gif?raw=true)](https://github.com/JakubMaslanka/Make-IT-Done/blob/master/img/Demo%232.gif?raw=true)
 
 ## Setup
 
