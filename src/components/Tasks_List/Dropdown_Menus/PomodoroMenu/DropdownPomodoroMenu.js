@@ -29,7 +29,7 @@ export function DropdownPomodoroMenu({
   });
 
   return (
-    <DropdownMenuContainer editorStyle={editorStyle} ref={domNode}>
+    <DropdownMenuContainer id="setPomodoro" editorStyle={editorStyle} ref={domNode}>
 
       <LabelContainer
         editorStyle={editorStyle}

@@ -26,7 +26,7 @@ export function DropdownProjectsMenu({
   const domNode = useClickOutsideHook(() => setOpen(false));
 
   return (
-    <DropdownMenuContainer editorStyle={editorStyle} ref={domNode}>
+    <DropdownMenuContainer id="setProject" editorStyle={editorStyle} ref={domNode}>
 
       <LabelContainer
         editorStyle={editorStyle}

@@ -16,7 +16,7 @@ export const Dialog = ({
       <p>{message}</p>
       <ButtonsContainer>
         {!isAlertType && <Button type="button" onClick={cancel}>Cancel</Button>}
-        <Button submit type="button" onClick={accept}>Accept</Button>
+        <Button id="acceptButton" type="button" submit onClick={accept}>Accept</Button>
       </ButtonsContainer>
     </DialogContainer>
   </ConfirmOverlay>

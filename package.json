@@ -1,7 +1,7 @@
 {
   "name": "make-it-done",
   "version": "1.0.0",
-  "description": "An application that allows you to control everyday tasks and projects. It provides the tools to stay focused, visualize deadlines, and keep everything in one place.",
+  "description": "Application that allows you to control everyday tasks and projects. It provides the tools to stay focused, visualize deadlines, and keep everything in one place.",
   "private": false,
   "keywords": [
     "App",
@@ -11,7 +11,7 @@
     "calendar"
   ],
   "author": "Jakub Maślanka",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
@@ -34,7 +34,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
+    "test-cli": "cypress run",
+    "test-qa": "cypress open --config-file ./cypress.staging.json",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -56,8 +58,11 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^8.4.1",
+    "cypress-localstorage-commands": "^1.5.0",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",

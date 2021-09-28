@@ -106,7 +106,7 @@ export const Landing = () => {
         <Footer>
           {window.innerWidth > 900 && <h5>make****done</h5>}
           <Link href="https://github.com/JakubMaslanka">About Me</Link>
-          <Link href="https://github.com/JakubMaslanka/Make-IT-Done/blob/master/README.md">Technology</Link>
+          <Link href="https://github.com/JakubMaslanka/Make-IT-Done#technologies-used">Technology</Link>
           <Link href="https://github.com/JakubMaslanka/Make-IT-Done">GitHub</Link>
           <h5>&copy; Jakub Maslanka 2021</h5>
         </Footer>

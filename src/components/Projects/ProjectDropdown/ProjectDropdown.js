@@ -73,7 +73,7 @@ export function ProjectDropdown({ project, tasks, editTask }) {
         <ConfirmContainer />
         <Header>
           <Title>{project.title}</Title>
-          <OptionsIcon fill="#FFFFFF" onClick={editorToggle} />
+          <OptionsIcon id="editProject" fill="#FFFFFF" onClick={editorToggle} />
         </Header>
         <Description>{project.description}</Description>
       </Container>

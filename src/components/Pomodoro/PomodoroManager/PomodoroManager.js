@@ -169,7 +169,7 @@ export function PomodoroManager() {
         />
       </CountdownContainer>
       <ButtonContainer>
-        <SettingsIcon onClick={modalMenuToggle} />
+        <SettingsIcon id="countdownSettings" onClick={modalMenuToggle} />
         {!countdown ? (
           <Button
             bigger
@@ -189,7 +189,7 @@ export function PomodoroManager() {
             STOP
           </Button>
         )}
-        <NextIcon onClick={() => (countdown && window.confirm('Are you sure you want to finish the round early?') ? nextRound() : null)} />
+        <NextIcon id="skipRound" onClick={() => (countdown && window.confirm('Are you sure you want to finish the round early?') ? nextRound() : null)} />
       </ButtonContainer>
       <Title>{title}</Title>
       <PomodoroTasks

@@ -44,7 +44,7 @@ export function DropdownCalendarMenu({
   };
 
   return (
-    <DropdownMenuContainer ref={domNode} editorStyle={editorStyle}>
+    <DropdownMenuContainer id="setDate" ref={domNode} editorStyle={editorStyle}>
 
       <LabelContainer
         editorStyle={editorStyle}

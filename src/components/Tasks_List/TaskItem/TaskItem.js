@@ -27,12 +27,13 @@ export function TaskItem({
       <TaskContainer
         onClick={(e) => (e.target.textContent !== '' ? history.push(`${window.location.pathname}/${task.id}`) : null)}
         backgroundColor={itemColor}
+        id="taskItem"
         isCompleted={task.isCompleted}
       >
         {task.isCompleted ? (
-          <CheckCircle fill={itemColor ? '#FFFFFF' : '#1BBC9B'} onClick={onComplete} />
+          <CheckCircle id="taskComplete" fill={itemColor ? '#FFFFFF' : '#1BBC9B'} onClick={onComplete} />
         ) : (
-          <UncheckCircle fill={itemColor ? '#FFFFFF' : '#1BBC9B'} onClick={onComplete} />
+          <UncheckCircle id="taskUncomplete" fill={itemColor ? '#FFFFFF' : '#1BBC9B'} onClick={onComplete} />
         )}
         <Title
           isCompleted={task.isCompleted}

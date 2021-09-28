@@ -165,10 +165,10 @@ export function TaskEditor({
         />
         <Textarea maxLength="150" onBlur={handleDescriptionEdit} onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription} type="text" placeholder="Add a note" />
         <FooterContainer>
-          <ArrowRight fill="#128069" onClick={onClose} />
+          <ArrowRight id="closeEditor" fill="#128069" onClick={onClose} />
           <p>{`Created on ${moment(taskToEdit.timeStump).format('ddd., D MMM YYYY')}`}</p>
           <ConfirmContainer>
-            <TrashIcon fill="#128069" onClick={confirmTrigger} />
+            <TrashIcon id="deleteTask" fill="#128069" onClick={confirmTrigger} />
           </ConfirmContainer>
         </FooterContainer>
       </EditorContainer>

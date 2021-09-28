@@ -11,7 +11,7 @@ export function CompletedTasksList({
 }) {
   return (
     <>
-      <DropdownButton onClick={toggleDropdown}>
+      <DropdownButton id="showCompleted" onClick={toggleDropdown}>
         {isDropdownOpen ? <ArrowDownIcon fill="#FFFFFF" /> : <ArrowRightIcon fill="#FFFFFF" />}
         <span>Done</span>
         <span>{tasks.length}</span>
