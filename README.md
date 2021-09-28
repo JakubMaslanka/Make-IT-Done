@@ -27,33 +27,34 @@
   Make-it-done is a specific culmination of the [course](https://kursreacta.pl/) provided by Michał Taszycki.
 
 > **Credentials for testing account**
+> 
 > email: test@makeitdone.online
 > password: p@ssword
 
 ## Technologies Used
 
 ###### Frontend
-<img src="/img/React_Logo.svg" alt="React_Logo" style="width: 42px;" />  React *@17.0.2*
+<img src="https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/React_Logo.svg" alt="React_Logo" style="width: 42px;" />  React *@17.0.2*
 
 - Prop-Types *@15.7.2*
 - React-Router *@5.2.0*
 
 ###### State Management
-<img src="/img/reduxlogo.svg" alt="Redux_Logo" style="width: 42px;" />  React-Redux *@7.2.5*
+<img src="https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/Redux_Logo.svg" alt="Redux_Logo" style="width: 42px;" />  React-Redux *@7.2.5*
 
 - Redux Toolkit *@1.6.1*
 
 ###### Styles
-<img src="/img/styled-components.png" alt="StyledComponents_Logo" style="width: 52px;" />  Styled-Components *@5.3.0*
+<img src="https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/StyledComponents_Logo.png" alt="StyledComponents_Logo" style="width: 52px;" />  Styled-Components *@5.3.0*
 
 ###### Backend (other repository)
-<img src="/img/JWTlogo.svg" alt="JWT_Logo" style="width: 42px;" />  Json Web Token *@8.5.1*
+<img src="https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/JWT_Logo.svg" alt="JWT_Logo" style="width: 42px;" />  Json Web Token *@8.5.1*
 
 - Json-server *@0.16.3*
 - Json-server-auth *@2.1.0*
 
 ###### Tests
-<img src="/img/cypresslogo.svg" alt="Cypress_Logo" style="width: 42px;" />  Cypress *@8.4.1*
+<img src="https://raw.githubusercontent.com/JakubMaslanka/Make-IT-Done/master/img/Cypress_Logo.svg" alt="Cypress_Logo" style="width: 42px;" />  Cypress *@8.4.1*
 
 ###### Other libraries
 - Eslint *@7.30.0*
